@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity.TablesActivity">
+    tools:context=".activity.TablesActivity">
 
     <TextView
         android:id="@+id/tv_live_table"
@@ -28,7 +28,7 @@
 
     </android.support.v7.widget.RecyclerView>
 
-    <TextView
+    <com.resmenu.customViews.CustomTextView
         android:id="@+id/tv_note"
         android:text="@string/txt_note"
         android:textStyle="bold"
@@ -51,12 +51,13 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_note"
         app:layout_constraintLeft_toLeftOf="parent"/>
 
-    <TextView
+    <com.resmenu.customViews.CustomTextView
         android:id="@+id/tv_live_text"
         android:text="Live Table"
         android:layout_marginTop="@dimen/top_margin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/top_margin"
         app:layout_constraintTop_toTopOf="@+id/green_view"
         app:layout_constraintLeft_toRightOf="@+id/green_view"
         />
@@ -71,9 +72,10 @@
         app:layout_constraintTop_toBottomOf="@+id/green_view"
         app:layout_constraintLeft_toLeftOf="parent"/>
 
-    <TextView
+    <com.resmenu.customViews.CustomTextView
         android:id="@+id/tv_not_live"
         android:text="Not Live "
+        android:layout_marginLeft="@dimen/top_margin"
         android:layout_marginTop="@dimen/top_margin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

@@ -5,9 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="@dimen/all_margin"
-    tools:context=".Activity.MainActivity">
+    tools:context=".activity.MainActivity">
 
-    <TextView
+    <com.resmenu.customViews.CustomTextView
         android:id="@+id/txt_view_welcome_messsage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -39,6 +39,7 @@
       <android.support.design.widget.TextInputEditText
           android:id="@+id/et_restaurent_id"
           android:hint="@string/hint_id"
+          app:fontType="gotham_medium"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           />
@@ -57,13 +58,14 @@
         <android.support.design.widget.TextInputEditText
             android:id="@+id/et_restaurent_password"
             android:hint="@string/hint_pass"
+            app:fontType="gotham_medium"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             />
 
     </android.support.design.widget.TextInputLayout>
 
-    <TextView
+    <com.resmenu.customViews.CustomTextView
         android:id="@+id/forgot_pass"
         android:text="@string/forgot_password"
         android:layout_width="wrap_content"

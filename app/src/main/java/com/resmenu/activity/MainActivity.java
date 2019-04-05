@@ -1,4 +1,4 @@
-package com.resmenu.Activity;
+package com.resmenu.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
