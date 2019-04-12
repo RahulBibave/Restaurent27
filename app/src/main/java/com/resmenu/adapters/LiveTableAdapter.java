@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.resmenu.R;
@@ -32,6 +33,10 @@ public class LiveTableAdapter extends RecyclerView.Adapter<LiveTableAdapter.Tabl
     public void onBindViewHolder(@NonNull TableViewHolder tableViewHolder, int i) {
         int x=i+1;
         tableViewHolder.txtTableNo.setText(""+x);
+        if (i==0 || i==1){
+            tableViewHolder.mLinOuter.setBackground(mContext.getResources().getDrawable(R.drawable.table_checked_outer));
+            tableViewHolder.mLinInner.setBackground(mContext.getResources().getDrawable(R.drawable.table_checked_inner));
+        }
 
     }
 
@@ -43,9 +48,12 @@ public class LiveTableAdapter extends RecyclerView.Adapter<LiveTableAdapter.Tabl
 
     public class TableViewHolder extends RecyclerView.ViewHolder {
         TextView txtTableNo;
+        LinearLayout mLinInner,mLinOuter;
         public TableViewHolder(@NonNull View itemView) {
             super(itemView);
             txtTableNo=itemView.findViewById(R.id.txtTableNo);
+            mLinInner=itemView.findViewById(R.id.linear_inner);
+            mLinOuter=itemView.findViewById(R.id.linear_outer);
         }
     }
 }

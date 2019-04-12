@@ -5,6 +5,7 @@
     android:layout_height="wrap_content">
 
 <LinearLayout
+    android:id="@+id/linear_outer"
     android:layout_margin="20dp"
     android:background="@drawable/tabale_uncheckd_outer"
     android:gravity="center"
@@ -12,6 +13,7 @@
     android:layout_height="80dp">
 
     <LinearLayout
+        android:id="@+id/linear_inner"
         android:background="@drawable/table_unchecked_inner"
         android:gravity="center"
         android:layout_width="40dp"
