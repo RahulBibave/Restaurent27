@@ -1,6 +1,7 @@
 package com.resmenu.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -12,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.resmenu.R;
+import com.resmenu.activity.ActivityKitchen;
 
 import java.util.zip.Inflater;
 
@@ -36,6 +38,13 @@ public class LiveTableAdapter extends RecyclerView.Adapter<LiveTableAdapter.Tabl
         if (i==0 || i==1){
             tableViewHolder.mLinOuter.setBackground(mContext.getResources().getDrawable(R.drawable.table_checked_outer));
             tableViewHolder.mLinInner.setBackground(mContext.getResources().getDrawable(R.drawable.table_checked_inner));
+            tableViewHolder.mLinOuter.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intentNext=new Intent(mContext, ActivityKitchen.class);
+                    mContext.startActivity(intentNext);
+                }
+            });
         }
 
     }
