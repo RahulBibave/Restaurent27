@@ -283,9 +283,6 @@
                 android:background="@color/colorPrimary"
                 android:text="Request a Demo"
                 android:textColor="@android:color/black" />
-
         </LinearLayout>
-
-
     </RelativeLayout>
 </RelativeLayout>

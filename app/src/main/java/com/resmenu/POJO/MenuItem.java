@@ -3,7 +3,8 @@ package com.resmenu.POJO;
 import java.io.Serializable;
 
 public class MenuItem implements Serializable {
-    int ItemId, ItemRating;
+    int ItemId;
+    float ItemRating;
     String ItemName,ItemPic,ItemDescription,ItemPrize;
 
     public MenuItem(int itemId, int itemRating, String itemName, String itemPic, String itemDescription, String itemPrize) {
@@ -23,7 +24,7 @@ public class MenuItem implements Serializable {
         ItemId = itemId;
     }
 
-    public int getItemRating() {
+    public float getItemRating() {
         return ItemRating;
     }
 

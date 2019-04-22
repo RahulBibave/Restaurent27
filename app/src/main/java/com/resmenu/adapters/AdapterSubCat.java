@@ -7,9 +7,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RatingBar;
+import android.widget.Toast;
 
 import com.resmenu.POJO.MenuItem;
 import com.resmenu.R;
+import com.resmenu.customViews.CustomButton;
+import com.resmenu.customViews.CustomTextView;
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -32,10 +37,31 @@ public class AdapterSubCat extends RecyclerView.Adapter<AdapterSubCat.ViewHolder
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolderKitchen viewHolderKitchen, int position) {
+    public void onBindViewHolder(@NonNull final ViewHolderKitchen viewHolderKitchen, int position) {
         MenuItem item=menuItemArrayList.get(position);
+        viewHolderKitchen.tvMenuTitle.setText(item.getItemName());
+        viewHolderKitchen.mTvMenuSubTitle.setText(item.getItemDescription());
+        viewHolderKitchen.mRatingBarMenu.setRating(item.getItemRating());
+        viewHolderKitchen.mTvPrice.setText(item.getItemPrize());
+        viewHolderKitchen.mBtnAddToCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                viewHolderKitchen.mBtnAddToCart.setEnabled(false);
+                Toast.makeText(mContext, "Added to cart", Toast.LENGTH_SHORT).show();
+            }
+        });
         //  viewHolderKitchen.imageView.clearColorFilter();
-        Picasso.with(mContext).load(item.getItemPic()).into(viewHolderKitchen.imageView);
+        Picasso.with(mContext).load(item.getItemPic()).into(viewHolderKitchen.imageView, new Callback() {
+            @Override
+            public void onSuccess() {
+
+            }
+
+            @Override
+            public void onError() {
+            viewHolderKitchen.imageView.setImageDrawable(mContext.getDrawable(R.drawable.facebook));
+            }
+        });
 
     }
 
@@ -47,9 +73,18 @@ public class AdapterSubCat extends RecyclerView.Adapter<AdapterSubCat.ViewHolder
 
     public class ViewHolderKitchen extends RecyclerView.ViewHolder{
         ImageView imageView;
+        CustomButton mBtnAddToCart;
+        CustomTextView tvMenuTitle , mTvMenuSubTitle , mTvPrice;
+        RatingBar mRatingBarMenu;
         public ViewHolderKitchen(@NonNull View itemView) {
             super(itemView);
             imageView=itemView.findViewById(R.id.imageView_menu);
+            tvMenuTitle = itemView.findViewById(R.id.textView_menu_title);
+            mRatingBarMenu = itemView.findViewById(R.id.ratingBarMenu);
+            mTvMenuSubTitle = itemView.findViewById(R.id.textView_menu_description);
+            mTvPrice = itemView.findViewById(R.id.textView_total_price);
+            mBtnAddToCart = itemView.findViewById(R.id.add_cart);
+
         }
     }
 }
