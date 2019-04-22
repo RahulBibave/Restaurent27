@@ -6,13 +6,22 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.resmenu.R;
+import com.resmenu.customViews.CustomTextView;
+
+import java.util.ArrayList;
 
 public class AdapterHorizontal extends RecyclerView.Adapter<AdapterHorizontal.ViewHolderKitchen> {
 
     Context mContext;
+    ArrayList<String> arrayListMenus;
 
+    public AdapterHorizontal(Context mContext , ArrayList<String> arrayListMenus) {
+        this.mContext = mContext;
+        this.arrayListMenus = arrayListMenus;
+    }
     public AdapterHorizontal(Context mContext) {
         this.mContext = mContext;
     }
@@ -25,19 +34,32 @@ public class AdapterHorizontal extends RecyclerView.Adapter<AdapterHorizontal.Vi
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolderKitchen viewHolderKitchen, int i) {
+    public void onBindViewHolder(@NonNull ViewHolderKitchen viewHolderKitchen, int position) {
+
+            viewHolderKitchen.tv_menu_name.setText(arrayListMenus.get(position));
+
+            final int menu_type = viewHolderKitchen.getPosition();
+
+            viewHolderKitchen.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(mContext, ""+menu_type, Toast.LENGTH_SHORT).show();
+                }
+            });
 
     }
 
     @Override
     public int getItemCount() {
-        return 10;
+        return arrayListMenus.size();
     }
 
 
     public class ViewHolderKitchen extends RecyclerView.ViewHolder{
+        CustomTextView tv_menu_name;
         public ViewHolderKitchen(@NonNull View itemView) {
             super(itemView);
+            tv_menu_name = itemView.findViewById(R.id.tv_menu_name);
         }
     }
 }

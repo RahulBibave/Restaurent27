@@ -13,10 +13,14 @@ public class CustomTextView extends AppCompatTextView {
 
     public CustomTextView(Context context) {
         super(context);
+        initFont(context , null);
+
     }
 
     public CustomTextView(Context context , AttributeSet attributeSet){
         super(context , attributeSet);
+        initFont(context , attributeSet);
+
     }
 
     public CustomTextView(Context context , AttributeSet attributeSet , int defaultStyleAttribute){
@@ -35,7 +39,7 @@ public class CustomTextView extends AppCompatTextView {
 
         TypedArray array = context.obtainStyledAttributes(attributeSet , R.styleable.textFonts);
 
-        int mTextFont = array.getInteger(R.styleable.textFonts_fontType, AppConstants.Fonts.GOTHAM_MEDIUM);
+        int mTextFont = array.getInteger(R.styleable.textFonts_fontType, AppConstants.Fonts.GOTHAM_BOOK);
 
         switch (mTextFont) {
             case AppConstants.Fonts.GOTHAM_BLACK:

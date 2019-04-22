@@ -26,10 +26,15 @@ import java.util.ArrayList;
 public class AdapterMenu extends RecyclerView.Adapter<AdapterMenu.ViewHolderMenu>{
     ArrayList<Menu>arrayList;
     Context mContext;
+    final ArrayList<String> stringArrayList = new ArrayList<>();
 
     public AdapterMenu(ArrayList<Menu> arrayList, Context mContext) {
         this.arrayList = arrayList;
         this.mContext = mContext;
+
+        for (int j = 0; j <arrayList.size() ; j++) {
+            stringArrayList.add(arrayList.get(j).getItemTypeName());
+        }
     }
 
     @NonNull
@@ -42,6 +47,7 @@ public class AdapterMenu extends RecyclerView.Adapter<AdapterMenu.ViewHolderMenu
     @Override
     public void onBindViewHolder(@NonNull final ViewHolderMenu viewHolderMenu, int i) {
         final Menu menu=arrayList.get(i);
+
         Picasso.with(mContext).load(menu.getItemTypePic())
                 .into(viewHolderMenu.imageView, new Callback() {
                     @Override
@@ -64,6 +70,7 @@ public class AdapterMenu extends RecyclerView.Adapter<AdapterMenu.ViewHolderMenu
             public void onClick(View v) {
                 Intent intent=new Intent(mContext, AllMenuActivity.class);
                 intent.putExtra("menu_id",menu.getItemTypeid());
+                intent.putStringArrayListExtra("menu_list",stringArrayList);
                 mContext.startActivity(intent);
             }
         });

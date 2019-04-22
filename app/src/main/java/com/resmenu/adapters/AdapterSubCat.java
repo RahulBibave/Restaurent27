@@ -6,15 +6,22 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
+import com.resmenu.POJO.MenuItem;
 import com.resmenu.R;
+import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
 
 public class AdapterSubCat extends RecyclerView.Adapter<AdapterSubCat.ViewHolderKitchen> {
 
     Context mContext;
+    ArrayList<MenuItem> menuItemArrayList;
 
-    public AdapterSubCat(Context mContext) {
+    public AdapterSubCat(Context mContext , ArrayList<MenuItem> menuItemArrayList) {
         this.mContext = mContext;
+        this.menuItemArrayList = menuItemArrayList;
     }
 
     @NonNull
@@ -25,19 +32,24 @@ public class AdapterSubCat extends RecyclerView.Adapter<AdapterSubCat.ViewHolder
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolderKitchen viewHolderKitchen, int i) {
+    public void onBindViewHolder(@NonNull ViewHolderKitchen viewHolderKitchen, int position) {
+        MenuItem item=menuItemArrayList.get(position);
+        //  viewHolderKitchen.imageView.clearColorFilter();
+        Picasso.with(mContext).load(item.getItemPic()).into(viewHolderKitchen.imageView);
 
     }
 
     @Override
     public int getItemCount() {
-        return 10;
+        return menuItemArrayList.size();
     }
 
 
     public class ViewHolderKitchen extends RecyclerView.ViewHolder{
+        ImageView imageView;
         public ViewHolderKitchen(@NonNull View itemView) {
             super(itemView);
+            imageView=itemView.findViewById(R.id.imageView_menu);
         }
     }
 }
