@@ -1,257 +1,262 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
 
-<RelativeLayout
-    android:background="@drawable/texture"
-    android:orientation="vertical"
-    android:layout_above="@+id/rel2"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-
-    <TextView
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_alignParentRight="true"
-        android:textSize="20dp"
-        android:textStyle="bold"
-        android:text="Waiter ID"
-        android:textColor="@color/colorPrimary"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-    <LinearLayout
-
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/rel2"
+        android:background="@drawable/texture"
+        android:orientation="vertical">
 
-
-
+        <TextView
+            android:id="@+id/txt_waiter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:text="Waiter ID"
+            android:textColor="@color/colorPrimary"
+            android:textSize="20dp"
+            android:textStyle="bold" />
 
         <LinearLayout
-            android:gravity="center"
-            android:weightSum="2"
-            android:layout_gravity="center"
-            android:layout_width="match_parent"
-            android:layout_height="300dp">
 
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
 
             <LinearLayout
-                android:background="@drawable/fork"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
                 android:layout_gravity="center"
-                android:layout_weight="0.4"
-                android:layout_width="0dp"
-                android:layout_height="200dp">
+                android:gravity="center"
+                android:weightSum="2">
 
 
-
-
-            </LinearLayout>
-
-            <FrameLayout
-                android:layout_weight="1.2"
-                android:layout_width="0dp"
-                android:layout_height="300dp">
-
-                <ImageView
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/plate"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-                
                 <LinearLayout
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-
+                    android:layout_width="0dp"
+                    android:layout_height="200dp"
                     android:layout_gravity="center"
-                    android:orientation="vertical"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                <EditText
-                    android:gravity="center"
-                    android:text="Rahul Bibave"
-                    android:hint="Name"
+                    android:layout_weight="0.4"
+                    android:background="@drawable/fork">
 
-                    android:background="@android:color/transparent"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-                <EditText
-                    android:background="@android:color/transparent"
-                    android:gravity="center"
-                    android:text="8055277545"
 
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-                <EditText
-                    android:gravity="center"
-                    android:background="@android:color/transparent"
+                </LinearLayout>
 
-                    android:text="rahulbibave@gmail.com"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                <FrameLayout
+                    android:layout_width="0dp"
+                    android:layout_height="300dp"
+                    android:layout_weight="1.2">
 
-                    <Button
-                        android:textColor="#fff"
-                        android:background="@color/colorPrimary"
-                        android:layout_marginTop="10dp"
-                        android:textSize="14dp"
-                        android:text="continue >"
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/plate" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
                         android:layout_gravity="center"
-                        android:layout_width="100dp"
-                        android:layout_height="30dp" />
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:orientation="vertical">
+
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@android:color/transparent"
+
+                            android:gravity="center"
+                            android:hint="Name"
+                            android:text="" />
+
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@android:color/transparent"
+                            android:gravity="center"
+
+                            android:hint="Mobile NO"
+                            android:text="" />
+
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@android:color/transparent"
+
+                            android:gravity="center"
+                            android:hint="Email"
+                            android:text="" />
+
+                        <Button
+                            android:layout_width="100dp"
+                            android:layout_height="30dp"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="10dp"
+                            android:background="@color/colorPrimary"
+                            android:text="continue >"
+                            android:textColor="#fff"
+                            android:textSize="14dp" />
+
+                    </LinearLayout>
+
+
+                </FrameLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="200dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="0.4"
+                    android:background="@drawable/fork">
+
 
                 </LinearLayout>
 
 
-
-
-            </FrameLayout>
-
-            <LinearLayout
-                android:background="@drawable/fork"
-                android:layout_gravity="center"
-                android:layout_weight="0.4"
-                android:layout_width="0dp"
-                android:layout_height="200dp">
-
-
-
-
             </LinearLayout>
 
 
         </LinearLayout>
+    </RelativeLayout>
 
-
-
-
-    </LinearLayout>
-</RelativeLayout>
     <RelativeLayout
-        android:background="#F8E0C6"
         android:id="@+id/rel2"
-        android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="#F8E0C6">
+
         <View
 
 
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="#2E2C2C"/>
+            android:background="#2E2C2C" />
+
         <LinearLayout
             android:id="@+id/line1"
-            android:gravity="center"
             android:layout_width="match_parent"
-            android:layout_height="60dp">
+            android:layout_height="60dp"
+            android:gravity="center">
 
 
             <LinearLayout
                 android:id="@+id/lin_menu"
-                android:gravity="center"
-                android:layout_weight="1"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center">
+
                 <ImageView
-                    android:layout_weight="1"
-                    android:src="@drawable/new_pass"
                     android:layout_width="30dp"
-                    android:layout_height="30dp" />
+                    android:layout_height="30dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/ic_restaurant_menu_black_24dp" />
 
                 <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_weight="2"
                     android:text="Menu"
-                    android:textSize="20dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:textSize="20dp" />
 
 
             </LinearLayout>
+
             <View
-                android:background="#2E2C2C"
                 android:layout_width="1dp"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:background="#2E2C2C" />
 
             <LinearLayout
-                android:layout_weight="1"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
 
                 <ImageView
-                    android:layout_weight="1"
-                    android:src="@drawable/new_pass"
                     android:layout_width="30dp"
-                    android:layout_height="30dp" />
+                    android:layout_height="30dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/ic_attach_money_black_24dp" />
 
                 <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_weight="2"
                     android:text="View Bill"
-                    android:textSize="20dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:textSize="20dp" />
 
             </LinearLayout>
 
         </LinearLayout>
+
         <View
             android:id="@+id/line3"
-            android:layout_below="@+id/line1"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="#2E2C2C"/>
+            android:layout_below="@+id/line1"
+            android:background="#2E2C2C" />
+
         <LinearLayout
-            android:gravity="center"
-           android:id="@+id/line2"
-            android:layout_below="@+id/line3"
+            android:id="@+id/line2"
             android:layout_width="match_parent"
-            android:layout_height="60dp">
+            android:layout_height="60dp"
+            android:layout_below="@+id/line3"
+            android:gravity="center">
 
 
             <LinearLayout
-                android:gravity="center"
-                android:layout_weight="1"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center">
+
                 <ImageView
-                    android:layout_weight="1"
-                    android:src="@drawable/new_pass"
                     android:layout_width="30dp"
-                    android:layout_height="30dp" />
+                    android:layout_height="30dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/ic_shopping_cart" />
 
                 <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_weight="2"
                     android:text="My Order"
-                    android:textSize="20dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:textSize="20dp" />
 
 
             </LinearLayout>
+
             <View
-                android:background="#2E2C2C"
                 android:layout_width="1dp"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:background="#2E2C2C" />
+
             <LinearLayout
                 android:id="@+id/lin_feedback"
-                android:layout_weight="1"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
 
                 <ImageView
-                    android:layout_weight="1"
-                    android:src="@drawable/new_pass"
                     android:layout_width="30dp"
-                    android:layout_height="30dp" />
+                    android:layout_height="30dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/ic_feedback_black_24dp" />
 
                 <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_weight="2"
                     android:text="Feedback"
-                    android:textSize="20dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:textSize="20dp" />
 
             </LinearLayout>
 
@@ -259,27 +264,27 @@
 
         <View
             android:id="@+id/line4"
-            android:layout_below="@+id/line2"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="#2E2C2C"/>
+            android:layout_below="@+id/line2"
+            android:background="#2E2C2C" />
 
         <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/line4"
             android:layout_marginTop="40dp"
             android:layout_marginBottom="20dp"
-            android:layout_below="@+id/line4"
-            android:gravity="center"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:gravity="center">
+
             <Button
-                android:text="Request a Demo"
-                android:textColor="@android:color/black"
-                android:background="@color/colorPrimary"
                 android:layout_width="200dp"
-                android:layout_height="30dp" />
+                android:layout_height="30dp"
+                android:background="@color/colorPrimary"
+                android:text="Request a Demo"
+                android:textColor="@android:color/black" />
 
         </LinearLayout>
-
 
 
     </RelativeLayout>

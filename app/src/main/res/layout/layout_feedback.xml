@@ -8,6 +8,7 @@
     android:layout_height="match_parent">
 
     <LinearLayout
+        android:layout_margin="5dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:padding="10dp"
@@ -15,58 +16,78 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <TextView
+        <com.resmenu.customViews.CustomTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Food"
             android:textSize="20dp"/>
-        <RelativeLayout
+        <LinearLayout
+            android:layout_gravity="center"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <TextView
+            <com.resmenu.customViews.CustomTextView
+                android:gravity="center_vertical"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
                 android:text="Teast"
+                android:textSize="25sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
             <RatingBar
-                android:layout_alignParentRight="true"
-                style="@style/Base.Widget.AppCompat.RatingBar.Small"
+
+                android:layout_gravity="end"
+                android:gravity="end"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
-        </RelativeLayout>
+        </LinearLayout>
 
-        <RelativeLayout
+
+        <LinearLayout
+            android:layout_gravity="center"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <TextView
+            <com.resmenu.customViews.CustomTextView
+                android:gravity="center_vertical"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
                 android:text="Teast"
+                android:textSize="25sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
             <RatingBar
-                android:layout_alignParentRight="true"
-                style="@style/Base.Widget.AppCompat.RatingBar.Small"
+
+                android:layout_gravity="end"
+                android:gravity="end"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
-        </RelativeLayout>
+        </LinearLayout>
 
-        <RelativeLayout
+
+        <LinearLayout
+           android:layout_gravity="center"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <TextView
+            <com.resmenu.customViews.CustomTextView
+               android:gravity="center_vertical"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
                 android:text="Teast"
+                android:textSize="25sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
             <RatingBar
-                android:layout_alignParentRight="true"
-                style="@style/Base.Widget.AppCompat.RatingBar.Small"
+
+                android:layout_gravity="end"
+                android:gravity="end"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
-        </RelativeLayout>
+        </LinearLayout>
 
 
 
@@ -75,6 +96,7 @@
 
 
     <LinearLayout
+        android:layout_margin="5dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:padding="10dp"
@@ -82,58 +104,79 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <TextView
+        <com.resmenu.customViews.CustomTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Food"
             android:textSize="20dp"/>
-        <RelativeLayout
+        <LinearLayout
+            android:layout_gravity="center"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <TextView
+            <com.resmenu.customViews.CustomTextView
+                android:gravity="center_vertical"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
                 android:text="Teast"
+                android:textSize="25sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
             <RatingBar
-                android:layout_alignParentRight="true"
-                style="@style/Base.Widget.AppCompat.RatingBar.Small"
+
+                android:layout_gravity="end"
+                android:gravity="end"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
-        </RelativeLayout>
+        </LinearLayout>
 
-        <RelativeLayout
+
+        <LinearLayout
+
+            android:layout_gravity="center"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <TextView
+            <com.resmenu.customViews.CustomTextView
+                android:gravity="center_vertical"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
                 android:text="Teast"
+                android:textSize="25sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
             <RatingBar
-                android:layout_alignParentRight="true"
-                style="@style/Base.Widget.AppCompat.RatingBar.Small"
+
+                android:layout_gravity="end"
+                android:gravity="end"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
-        </RelativeLayout>
+        </LinearLayout>
 
-        <RelativeLayout
+
+        <LinearLayout
+            android:layout_gravity="center"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <TextView
+            <com.resmenu.customViews.CustomTextView
+                android:gravity="center_vertical"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
                 android:text="Teast"
+                android:textSize="25sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
             <RatingBar
-                android:layout_alignParentRight="true"
-                style="@style/Base.Widget.AppCompat.RatingBar.Small"
+
+                android:layout_gravity="end"
+                android:gravity="end"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
-        </RelativeLayout>
+        </LinearLayout>
 
 
 
@@ -142,6 +185,7 @@
 
 
     <LinearLayout
+        android:layout_margin="5dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:padding="10dp"
@@ -149,60 +193,83 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <TextView
+        <com.resmenu.customViews.CustomTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Food"
             android:textSize="20dp"/>
-        <RelativeLayout
+        <LinearLayout
+            android:layout_gravity="center"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <TextView
+            <com.resmenu.customViews.CustomTextView
+                android:gravity="center_vertical"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
                 android:text="Teast"
+                android:textSize="25sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
             <RatingBar
-                android:layout_alignParentRight="true"
-                style="@style/Base.Widget.AppCompat.RatingBar.Small"
+
+                android:layout_gravity="end"
+                android:gravity="end"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
-        </RelativeLayout>
+        </LinearLayout>
 
-        <RelativeLayout
+
+        <LinearLayout
+            android:layout_gravity="center"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <TextView
+            <com.resmenu.customViews.CustomTextView
+                android:gravity="center_vertical"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
                 android:text="Teast"
+                android:textSize="25sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
             <RatingBar
-                android:layout_alignParentRight="true"
-                style="@style/Base.Widget.AppCompat.RatingBar.Small"
+
+                android:layout_gravity="end"
+                android:gravity="end"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
-        </RelativeLayout>
+        </LinearLayout>
 
-        <RelativeLayout
+
+        <LinearLayout
+            android:layout_gravity="center"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <TextView
+            <com.resmenu.customViews.CustomTextView
+                android:gravity="center_vertical"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
                 android:text="Teast"
+                android:textSize="25sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
             <RatingBar
-                android:layout_alignParentRight="true"
-                style="@style/Base.Widget.AppCompat.RatingBar.Small"
+
+                android:layout_gravity="end"
+                android:gravity="end"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
-        </RelativeLayout>
+        </LinearLayout>
 
 
 
     </LinearLayout>
+
+
+
 </LinearLayout>

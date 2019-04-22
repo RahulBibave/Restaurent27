@@ -11,4 +11,10 @@ public class AppConstants {
         public static final int GOTHAM_THIN = 6;
     }
 
+    public static class SHaredPrefKeys{
+        public static final String SHAREDPREFRESMENU = "SHAREDPREFRESMENU";
+        public static final String LoginKey = "LoginKey";
+        public static final String RoleKey = "Role";
+    }
+
 }

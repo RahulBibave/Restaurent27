@@ -10,15 +10,19 @@ import com.resmenu.adapters.LiveTableAdapter;
 
 public class TablesActivity extends AppCompatActivity {
     private RecyclerView mRecyclerViewTable;
+    public static String role;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tables);
+        role=getIntent().getStringExtra("role");
+
         init();
     }
 
     private void init() {
+
         mRecyclerViewTable=findViewById(R.id.recycler_view_live_tables);
         mRecyclerViewTable.setLayoutManager(new GridLayoutManager(this,4));
         LiveTableAdapter liveTableAdapter=new LiveTableAdapter(this);
