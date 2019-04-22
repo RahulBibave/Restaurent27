@@ -35,7 +35,7 @@ public class CustomTextView extends AppCompatTextView {
 
         TypedArray array = context.obtainStyledAttributes(attributeSet , R.styleable.textFonts);
 
-        int mTextFont = array.getInteger(R.styleable.textFonts_fontType, AppConstants.Fonts.GOTHAM_BOOK);
+        int mTextFont = array.getInteger(R.styleable.textFonts_fontType, AppConstants.Fonts.GOTHAM_MEDIUM);
 
         switch (mTextFont) {
             case AppConstants.Fonts.GOTHAM_BLACK:
