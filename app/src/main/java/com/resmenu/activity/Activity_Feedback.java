@@ -12,6 +12,6 @@ public class Activity_Feedback extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.layout_feedback);
+            setContentView(R.layout.layout_feedback);
     }
 }
