@@ -30,22 +30,21 @@ public class MainActivity extends AppCompatActivity {
       private RequestQueue mRequestQueue;
       private EditText mEdtID,mEdtPass;
       String userid="gan1234",userPass="leo_123";
-        SharedPreferenceManager sharedPreferenceManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        sharedPreferenceManager = new SharedPreferenceManager();
-        String hotel_id = sharedPreferenceManager.get(AppConstants.SHaredPrefKeys.LoginKey,"0");
-        int role = sharedPreferenceManager.getInt(AppConstants.SHaredPrefKeys.RoleKey);
 
-        if (hotel_id != null ) {
-            Intent intentRole = new Intent(MainActivity.this,TablesActivity.class);
-            intentRole.putExtra("role",role);
-            startActivity(intentRole);
-            finish();
-        }
+//        String hotel_id = sharedPreferenceManager.get(AppConstants.SHaredPrefKeys.LoginKey,"0");
+//        int role = sharedPreferenceManager.getInt(AppConstants.SHaredPrefKeys.RoleKey);
+//
+//        if (hotel_id != null ) {
+//            Intent intentRole = new Intent(MainActivity.this,TablesActivity.class);
+//            intentRole.putExtra("role",role);
+//            startActivity(intentRole);
+//            finish();
+//        }
         init();
         button_login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
                         // 1 for kitchen
                         Intent intent=new Intent(MainActivity.this,TablesActivity.class);
                         intent.putExtra("role","1");
-                        sharedPreferenceManager.storeInt(AppConstants.SHaredPrefKeys.RoleKey,1);
+//                        sharedPreferenceManager.storeInt(AppConstants.SHaredPrefKeys.RoleKey,1);
                         startActivity(intent);
                         break;
                     }
@@ -92,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
 
                         Intent intent=new Intent(MainActivity.this,TablesActivity.class);
                         intent.putExtra("role","2");
-                        sharedPreferenceManager.storeInt(AppConstants.SHaredPrefKeys.RoleKey,2);
+//                        sharedPreferenceManager.storeInt(AppConstants.SHaredPrefKeys.RoleKey,2);
                         startActivity(intent);
                         break;
                     }

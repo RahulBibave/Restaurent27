@@ -1,12 +1,15 @@
 package com.resmenu.activity;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.ButtonBarLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -19,6 +22,7 @@ import com.resmenu.R;
 import com.resmenu.adapters.AdapterHorizontal;
 import com.resmenu.adapters.AdapterSubCat;
 import com.resmenu.constants.ApiUrls;
+import com.resmenu.customViews.CustomButton;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -26,7 +30,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class AllMenuActivity extends AppCompatActivity {
+public class AllMenuActivity extends AppCompatActivity{
     private RecyclerView mRecyclerView;
     private RecyclerView mRecyclerMenuList;
     private RequestQueue mRequestQueue;
@@ -36,6 +40,10 @@ public class AllMenuActivity extends AppCompatActivity {
     public static final String TAG = AllMenuActivity.class.getSimpleName();
     String menu_type;
     ArrayList<MenuItem> menuItemArrayList;
+
+     CustomButton mBtnConfirmOrder;
+     CustomButton mBtnViewCart;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +54,20 @@ public class AllMenuActivity extends AppCompatActivity {
         Log.e(TAG, "Menu_type  :- " + menu_type);
         arrayListMenus = bundle.getStringArrayList("menu_list");
 
+        mBtnConfirmOrder = findViewById(R.id.btn_confirm_order);
+        mBtnViewCart = findViewById(R.id.btn_viweCart);
+        mBtnConfirmOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(AllMenuActivity.this, Activity_WaiterLanding.class));
+            }
+        });
+        mBtnViewCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(AllMenuActivity.this,MyCartActivity.class));
+            }
+        });
         init();
     }
 
@@ -58,39 +80,42 @@ public class AllMenuActivity extends AppCompatActivity {
         adapterHorizontal = new AdapterHorizontal(this, arrayListMenus);
         mRecyclerView.setAdapter(adapterHorizontal);
 
-       getMenuItem(0, Integer.parseInt(menu_type));
+
+
+        getMenuItem(0, Integer.parseInt(menu_type));
 
     }
-    public void getMenuItem(int hotelID,int menuID){
+
+    public void getMenuItem(int hotelID, int menuID) {
         mRequestQueue = Volley.newRequestQueue(this);
         final StringRequest request = new StringRequest(Request.Method.GET, ApiUrls.mUrlSubCategories, new Response.Listener<String>() {
             @Override
             public void onResponse(String s) {
 
-                Log.e("sadddsasasa",""+s.toString());
+                Log.e("sadddsasasa", "" + s.toString());
 
                 try {
 
                     JSONObject object = new JSONObject(s);
-                    int sucess_code=object.getInt("success");
-                    if (sucess_code==1){
-                        menuItemArrayList=new ArrayList<>();
-                        JSONArray array =object.getJSONArray("result");
-                        Log.e("dddddddddd",""+array.toString());
-                        for (int i = 0 ; i<array.length();i++){
-                            JSONObject jsonObject=array.getJSONObject(i);
-                            int id=jsonObject.getInt("ItemId");
-                            int ItemRating=jsonObject.getInt("ItemRating");
-                            String ItemName=jsonObject.getString("ItemName");
-                            String ItemPic=jsonObject.getString("ItemPic");
-                            String ItemDescription=jsonObject.getString("ItemDescription");
-                            String ItemPrize=jsonObject.getString("ItemPrize");
+                    int sucess_code = object.getInt("success");
+                    if (sucess_code == 1) {
+                        menuItemArrayList = new ArrayList<>();
+                        JSONArray array = object.getJSONArray("result");
+                        Log.e("dddddddddd", "" + array.toString());
+                        for (int i = 0; i < array.length(); i++) {
+                            JSONObject jsonObject = array.getJSONObject(i);
+                            int id = jsonObject.getInt("ItemId");
+                            int ItemRating = jsonObject.getInt("ItemRating");
+                            String ItemName = jsonObject.getString("ItemName");
+                            String ItemPic = jsonObject.getString("ItemPic");
+                            String ItemDescription = jsonObject.getString("ItemDescription");
+                            String ItemPrize = jsonObject.getString("ItemPrize");
 
-                            MenuItem menuItem=new MenuItem(id,ItemRating,ItemName,ItemPic,ItemDescription,ItemPrize);
+                            MenuItem menuItem = new MenuItem(id, ItemRating, ItemName, ItemPic, ItemDescription, ItemPrize);
                             menuItemArrayList.add(menuItem);
 
                         }
-                        adapterSubCat =new AdapterSubCat(AllMenuActivity.this,menuItemArrayList);
+                        adapterSubCat = new AdapterSubCat(AllMenuActivity.this, menuItemArrayList);
                         mRecyclerMenuList.setAdapter(adapterSubCat);
                     }
 
@@ -102,12 +127,11 @@ public class AllMenuActivity extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
-                Log.e("saddd",volleyError.toString());
+                Log.e("saddd", volleyError.toString());
 
             }
         });
 
         mRequestQueue.add(request);
     }
-
 }

@@ -17,4 +17,8 @@ public class AppConstants {
         public static final String RoleKey = "Role";
     }
 
+    public static class room{
+        public static final String DATABASENAME = "restaurentmenu-db";
+    }
+
 }
