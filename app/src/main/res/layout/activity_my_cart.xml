@@ -12,9 +12,9 @@
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/cl_child"
-        android:padding="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:padding="5dp"
         app:layout_constraintRight_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tool_myCart">
@@ -59,11 +59,33 @@
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_virw_cart"
-        app:layout_constraintTop_toBottomOf="@+id/cl_child"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/cl_child">
 
     </android.support.v7.widget.RecyclerView>
+
+
+
+    <com.resmenu.customViews.CustomButton
+        android:id="@+id/btn_proceedtopay"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Proceed to pay"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btn_continueorder"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <com.resmenu.customViews.CustomButton
+        android:id="@+id/btn_continueorder"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Continue Order"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btn_proceedtopay" />
 
 
 </android.support.constraint.ConstraintLayout>
