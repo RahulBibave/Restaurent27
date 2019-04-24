@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:text="Name"
         app:fontType = "gotham_medium"
-        android:textSize="20sp"
+        android:textSize="16sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -22,7 +22,7 @@
         android:id="@+id/plus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="128dp"
+        android:layout_marginLeft="40dp"
         android:text="+"
         app:fontType = "gotham_medium"
         android:textSize="20sp"
@@ -34,16 +34,16 @@
         app:layout_constraintTop_toTopOf="parent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Qty"
+        android:text="1"
         app:fontType = "gotham_medium"
-        android:textSize="20sp"
+        android:textSize="16sp"
         android:layout_marginLeft="10dp"
         app:layout_constraintStart_toEndOf="@+id/plus"
         tools:layout_editor_absoluteX="184dp"
         tools:layout_editor_absoluteY="-1dp" />
 
     <com.resmenu.customViews.CustomTextView
-        android:id="@+id/textView4"
+        android:id="@+id/minus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="-"
@@ -56,7 +56,7 @@
 
     <com.resmenu.customViews.CustomTextView
         android:id="@+id/total"
-        android:textSize="20sp"
+        android:textSize="16sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Cost"

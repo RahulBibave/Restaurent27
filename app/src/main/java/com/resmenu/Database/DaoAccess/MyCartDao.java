@@ -22,6 +22,9 @@ public interface MyCartDao {
     @Delete
     void delete(MyCart task);
 
+    @Query("DELETE FROM MyCart WHERE id = :id")
+    void deleteByUserId(int id);
+
     @Update
-    void update(MyCart  task);
+    void update(MyCart task);
 }
