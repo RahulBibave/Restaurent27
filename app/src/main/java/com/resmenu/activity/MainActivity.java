@@ -26,10 +26,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class MainActivity extends AppCompatActivity {
-      private Button button_login;
-      private RequestQueue mRequestQueue;
-      private EditText mEdtID,mEdtPass;
-      String userid="gan1234",userPass="leo_123";
+    private Button button_login;
+    private RequestQueue mRequestQueue;
+    private EditText mEdtID, mEdtPass;
+    String userid = "gan1234", userPass = "leo_123";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         button_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-              Login();
+                Login();
             }
         });
 
@@ -59,9 +59,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void init() {
-        button_login=findViewById(R.id.button_login);
-        mEdtID=findViewById(R.id.et_restaurent_id);
-        mEdtPass=findViewById(R.id.et_restaurent_password);
+        button_login = findViewById(R.id.button_login);
+        mEdtID = findViewById(R.id.et_restaurent_id);
+        mEdtPass = findViewById(R.id.et_restaurent_password);
         mEdtID.setText(userid);
         mEdtPass.setText(userPass);
     }
@@ -78,10 +78,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 switch (which) {
-                    case 0:{
+                    case 0: {
                         // 1 for kitchen
-                        Intent intent=new Intent(MainActivity.this,TablesActivity.class);
-                        intent.putExtra("role","1");
+                        Intent intent = new Intent(MainActivity.this, TablesActivity.class);
+                        intent.putExtra("role", "1");
 //                        sharedPreferenceManager.storeInt(AppConstants.SHaredPrefKeys.RoleKey,1);
                         startActivity(intent);
                         break;
@@ -89,8 +89,8 @@ public class MainActivity extends AppCompatActivity {
                     case 1: {
                         // 2 for waiter
 
-                        Intent intent=new Intent(MainActivity.this,TablesActivity.class);
-                        intent.putExtra("role","2");
+                        Intent intent = new Intent(MainActivity.this, TablesActivity.class);
+                        intent.putExtra("role", "2");
 //                        sharedPreferenceManager.storeInt(AppConstants.SHaredPrefKeys.RoleKey,2);
                         startActivity(intent);
                         break;
@@ -113,13 +113,13 @@ public class MainActivity extends AppCompatActivity {
         builder.setTitle("Choose Waiter");
 
         // add a list
-        String[] animals = {"Waiter 1", "Waiter 2","Waiter 3","Waiter 4","Waiter 5","Waiter 6"};
+        String[] animals = {"Waiter 1", "Waiter 2", "Waiter 3", "Waiter 4", "Waiter 5", "Waiter 6"};
         builder.setItems(animals, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 switch (which) {
-                    case 0:{
-                        Intent intent=new Intent(MainActivity.this,TablesActivity.class);
+                    case 0: {
+                        Intent intent = new Intent(MainActivity.this, TablesActivity.class);
                         startActivity(intent);
                         break;
 
@@ -138,20 +138,22 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void Login(){
+    public void Login() {
         mRequestQueue = Volley.newRequestQueue(this);
-        final StringRequest request = new StringRequest(Request.Method.GET, ApiUrls.mUrlLogin+"UserName="+mEdtID.getText().toString()+"&Password="+mEdtPass.getText().toString(), new Response.Listener<String>() {
+        final StringRequest request = new StringRequest(Request.Method.GET, ApiUrls.mUrlLogin + "UserName=" + mEdtID.getText().toString() + "&Password=" + mEdtPass.getText().toString(), new Response.Listener<String>() {
             @Override
             public void onResponse(String s) {
 
-                Log.e("sadddsasasa",""+s.toString());
+                Log.e("Login responce", "String responce:- " + s);
 
                 try {
 
                     JSONObject object = new JSONObject(s);
-                    int sucess_code=object.getInt("success");
-                    if (sucess_code==0){
-                        final AlertDialog.Builder aleartDialod=new AlertDialog.Builder(MainActivity.this);
+                    int sucess_code = object.getInt("success");
+
+                    if (sucess_code == 0) {
+
+                        final AlertDialog.Builder aleartDialod = new AlertDialog.Builder(MainActivity.this);
                         aleartDialod.setTitle("Login Failed");
                         aleartDialod.setMessage("Try with valid Restaurent ID and Password");
                         aleartDialod.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -161,14 +163,16 @@ public class MainActivity extends AppCompatActivity {
                             }
                         });
                         aleartDialod.create().show();
-                    }else if(sucess_code==1){
+
+                    } else if (sucess_code == 1) {
+
                         showAlertDialogButtonClicked();
-                        JSONArray array =object.getJSONArray("result");
-                        Log.e("dddddddddd",""+array.toString());
-                        for (int i = 0 ; i<array.length();i++){
-                            JSONObject jsonObject=array.getJSONObject(i);
-                            int hotel_id = jsonObject.getInt("HotelId");
-                            Log.e("Hotel_id",""+hotel_id);
+                        JSONArray array = object.getJSONArray("result");
+                        Log.e("dddddddddd", "" + array.toString());
+                        for (int i = 0; i < array.length(); i++) {
+                            JSONObject jsonObject = array.getJSONObject(i);
+                            String hotel_id = jsonObject.getString("HotelId");
+                            Log.e("Hotel_id", "" + hotel_id);
 //                            SharedPreferenceManager.storeInt(AppConstants.SHaredPrefKeys.LoginKey,hotel_id);
                         }
                     }
@@ -182,7 +186,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
 
-                Log.e("saddd",volleyError.toString());
+                Log.e("saddd", volleyError.toString());
 
             }
         });

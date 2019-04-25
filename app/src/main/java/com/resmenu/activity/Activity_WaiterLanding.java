@@ -35,6 +35,7 @@ public class Activity_WaiterLanding extends AppCompatActivity {
     private RequestQueue mRequestQueue;
     private TextView txtWaiter;
     ArrayList<String> arrayListStaff;
+    private LinearLayout myOrders;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -59,12 +60,21 @@ public class Activity_WaiterLanding extends AppCompatActivity {
             }
         });
 
+        myOrders.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Activity_WaiterLanding.this, MyCartActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
     private void init() {
         mMenu = findViewById(R.id.lin_menu);
         mFeedBack = findViewById(R.id.lin_feedback);
         txtWaiter = findViewById(R.id.txt_waiter);
+        myOrders = findViewById(R.id.my_orders);
         txtWaiter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

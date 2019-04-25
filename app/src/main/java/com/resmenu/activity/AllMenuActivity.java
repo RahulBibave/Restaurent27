@@ -35,10 +35,12 @@ public class AllMenuActivity extends AppCompatActivity{
     private RecyclerView mRecyclerMenuList;
     private RequestQueue mRequestQueue;
     ArrayList<String> arrayListMenus;
+
     private AdapterHorizontal adapterHorizontal;
     private AdapterSubCat adapterSubCat;
+
     public static final String TAG = AllMenuActivity.class.getSimpleName();
-    String menu_type;
+    String menu_type , menu_name;
     ArrayList<MenuItem> menuItemArrayList;
 
      CustomButton mBtnConfirmOrder;
@@ -51,6 +53,7 @@ public class AllMenuActivity extends AppCompatActivity{
 
         Bundle bundle = getIntent().getExtras();
         menu_type = bundle.getString("menu_id");
+        menu_name = bundle.getString("menu_name");
         Log.e(TAG, "Menu_type  :- " + menu_type);
         arrayListMenus = bundle.getStringArrayList("menu_list");
 
@@ -59,7 +62,7 @@ public class AllMenuActivity extends AppCompatActivity{
         mBtnConfirmOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(AllMenuActivity.this, Activity_WaiterLanding.class));
+//                startActivity(new Intent(AllMenuActivity.this, Activity_WaiterLanding.class));
             }
         });
         mBtnViewCart.setOnClickListener(new View.OnClickListener() {
@@ -77,7 +80,7 @@ public class AllMenuActivity extends AppCompatActivity{
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         mRecyclerMenuList.setLayoutManager(new LinearLayoutManager(this));
 
-        adapterHorizontal = new AdapterHorizontal(this, arrayListMenus);
+        adapterHorizontal = new AdapterHorizontal(this, arrayListMenus ,menu_name);
         mRecyclerView.setAdapter(adapterHorizontal);
 
 

@@ -13,8 +13,11 @@ import android.widget.Toast;
 import com.resmenu.Database.Entity.MyCart;
 import com.resmenu.Database.RestaurentMenuDatabase;
 import com.resmenu.R;
+import com.resmenu.activity.MyCartActivity;
 import com.resmenu.customViews.CustomTextView;
+import com.resmenu.interfaces.DataTransfer;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MyCartAdapter extends RecyclerView.Adapter<MyCartAdapter.ViewHolderMyCart> {
@@ -22,12 +25,16 @@ public class MyCartAdapter extends RecyclerView.Adapter<MyCartAdapter.ViewHolder
     Context mContext;
     List<MyCart> myCartArrayList;
     int quantity;
-    RestaurentMenuDatabase restaurentMenuDatabase;
+    private RestaurentMenuDatabase restaurentMenuDatabase;
+    DataTransfer dtInterface;
 
-    public MyCartAdapter(Context mContext, List<MyCart> myCartArrayList, RestaurentMenuDatabase restaurentMenuDatabase) {
+
+    public MyCartAdapter(Context mContext, List<MyCart> myCartArrayList, RestaurentMenuDatabase restaurentMenuDatabase ,  DataTransfer dtInterface) {
         this.mContext = mContext;
         this.myCartArrayList = myCartArrayList;
         this.restaurentMenuDatabase = restaurentMenuDatabase;
+        this.dtInterface = dtInterface;
+        totalPriceCount();
     }
 
     @NonNull
@@ -40,64 +47,19 @@ public class MyCartAdapter extends RecyclerView.Adapter<MyCartAdapter.ViewHolder
     @Override
     public void onBindViewHolder(@NonNull final ViewHolderMyCart holder, final int position) {
 
-         final int tableId = myCartArrayList.get(position).getId();
-        holder.mItemName.setText(myCartArrayList.get(position).getMenuName());
-        double price = myCartArrayList.get(position).getMenuPrice();
-        holder.mTotal.setText(price + "");
-        quantity = myCartArrayList.get(position).getItemQuantity();
-        holder.mMinus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (quantity <= 0) {
-                    Toast.makeText(mContext, "Minus", Toast.LENGTH_SHORT).show();
-                    holder.mQuantity.setText("" + quantity);
-                    holder.mMinus.setEnabled(false);
-                    updateTotal();
-                } else {
-                    quantity--;
-                    holder.mQuantity.setText("" + quantity);
-                    double total = quantity * myCartArrayList.get(position).getMenuPrice();
-                    holder.mTotal.setText(""+total);
-                    if (quantity == 0){
-                        holder.mMinus.setEnabled(false);
-                    }
-                }
-            }
-        });
+//        final int holder.getAdapterPosition() = i;
+        quantity = myCartArrayList.get(holder.getAdapterPosition()).getItemQuantity();
 
-        holder.mPlus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (quantity >= 0) {
-                    Toast.makeText(mContext, "Plus", Toast.LENGTH_SHORT).show();
-                    holder.mQuantity.setText("" + quantity++);
-                    holder.mMinus.setEnabled(true);
-                    double total = quantity * myCartArrayList.get(position).getMenuPrice();
-                    holder.mTotal.setText(""+total);
-                }
-            }
-        });
+        holder.mItemName.setText(myCartArrayList.get(holder.getAdapterPosition()).getMenuName());
+        double price = quantity * myCartArrayList.get(holder.getAdapterPosition()).getMenuPrice();
+        holder.mTotal.setText("" + price);
+        holder.mQuantity.setText("" + quantity);
 
-        holder.mImgCancle.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d("TAG","before delete :- "+ restaurentMenuDatabase.myCartDao().getAll().size());
-                Log.d("TAG","position :- "+position +"  "+ myCartArrayList.size());
-                if (position < myCartArrayList.size() && position != -1) {
-                    restaurentMenuDatabase.myCartDao().deleteByUserId(tableId);
-                    Log.d("TAG","After delete :- "+ restaurentMenuDatabase.myCartDao().getAll().size());
-                    myCartArrayList.remove(position);
-                    notifyItemRemoved(position);
-                }
-            }
-        });
+        Log.d("TAG", "quantity :- " +quantity+" holder.getAdapterPosition():- "+holder.getAdapterPosition());
+
+
 
     }
-
-    private void updateTotal() {
-
-    }
-
     @Override
     public int getItemCount() {
         return myCartArrayList.size();
@@ -116,6 +78,78 @@ public class MyCartAdapter extends RecyclerView.Adapter<MyCartAdapter.ViewHolder
             mQuantity = itemView.findViewById(R.id.quantity);
             mTotal = itemView.findViewById(R.id.total);
             mImgCancle = itemView.findViewById(R.id.imageView_cancle);
+
+            mPlus.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    quantity = myCartArrayList.get(getAdapterPosition()).getItemQuantity();
+                    if (quantity >= 0) {
+                        quantity = quantity+1;
+                        Toast.makeText(mContext, "Plus", Toast.LENGTH_SHORT).show();
+                        mQuantity.setText("" + quantity);
+                        myCartArrayList.get(getAdapterPosition()).setItemQuantity(quantity);
+                        mMinus.setEnabled(true);
+                        double total = quantity * myCartArrayList.get(getAdapterPosition()).getMenuPrice();
+                        mTotal.setText("" + total);
+                        updateDatabase(getAdapterPosition() , quantity , total);
+
+                    }
+                }
+            });
+
+            mImgCancle.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    try{
+                        Log.d("TAG", "before delete :- " + restaurentMenuDatabase.myCartDao().getAll().size());
+                        Log.d("TAG", "holder.getAdapterPosition() :- " +  getAdapterPosition() + "  " + myCartArrayList.size());
+                        if ( getAdapterPosition() < myCartArrayList.size() &&  getAdapterPosition() != -1) {
+                             restaurentMenuDatabase.myCartDao().deleteByUserId(myCartArrayList.get(getAdapterPosition()).getId());
+                            Log.d("TAG", "After delete :- " + restaurentMenuDatabase.myCartDao().getAll().size());
+                            myCartArrayList.remove( getAdapterPosition());
+                            notifyItemRemoved(getAdapterPosition());
+                            totalPriceCount();
+                        }
+                    }catch (ArrayIndexOutOfBoundsException ex){
+                        ex.printStackTrace();
+                    }
+                }
+            });
+
+            mMinus.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    quantity = myCartArrayList.get(getAdapterPosition()).getItemQuantity();
+                    if (quantity <= 0) {
+                        Toast.makeText(mContext, "Minus", Toast.LENGTH_SHORT).show();
+                        mQuantity.setText("" + quantity);
+                        mMinus.setEnabled(false);
+                    } else {
+                        quantity = quantity-1;
+                        mQuantity.setText("" + quantity);
+                        double total = quantity * myCartArrayList.get(getAdapterPosition()).getMenuPrice();
+                        mTotal.setText("" + total);
+                        updateDatabase(getAdapterPosition() , quantity , total);
+                        if (quantity == 0) {
+                            mMinus.setEnabled(false);
+                        } else {
+                            myCartArrayList.get(getAdapterPosition()).setItemQuantity(quantity);
+                        }
+                    }
+                }
+            });
+
         }
+    }
+
+    private void totalPriceCount() {
+        dtInterface.setValues(restaurentMenuDatabase.myCartDao().getTotal(1));
+    }
+
+    private void updateDatabase(int position ,int quantity ,double total){
+       // Log.d("TAG", "ID :- " + myCartArrayList.get(position).getId()+ "  position " + position);
+        Log.d("TAG", " holder.getAdapterPosition():- "+position+" getMenuPrice:- "+myCartArrayList.get(position).getMenuPrice() );
+        restaurentMenuDatabase.myCartDao().updateById(myCartArrayList.get(position).getId(),quantity);
+        totalPriceCount();
     }
 }

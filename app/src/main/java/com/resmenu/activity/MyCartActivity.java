@@ -13,11 +13,12 @@ import com.resmenu.R;
 import com.resmenu.adapters.MyCartAdapter;
 import com.resmenu.customViews.CustomButton;
 import com.resmenu.customViews.CustomTextView;
+import com.resmenu.interfaces.DataTransfer;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MyCartActivity extends AppCompatActivity {
+public class MyCartActivity extends AppCompatActivity implements DataTransfer {
 
     private RecyclerView mRecyclerViewCart;
     private MyCartAdapter myCartAdapter;
@@ -26,7 +27,7 @@ public class MyCartActivity extends AppCompatActivity {
 
     private CustomButton mBtnPproceedtopay;
     private CustomButton mBtnContinueorde;
-    private CustomTextView mTvNoItems;
+    private CustomTextView mTvNoItems , mTvTotalAMount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +36,7 @@ public class MyCartActivity extends AppCompatActivity {
 
         mBtnPproceedtopay = findViewById(R.id.btn_proceedtopay);
         mBtnContinueorde = findViewById(R.id.btn_continueorder);
+        mTvTotalAMount = findViewById(R.id.tv_amount);
 
         mTvNoItems = findViewById(R.id.tv_no_items);
 
@@ -42,6 +44,13 @@ public class MyCartActivity extends AppCompatActivity {
         myCartArrayList = new ArrayList<>();
 
         getDatabaseList();
+
+        mBtnContinueorde.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
     }
 
@@ -54,11 +63,17 @@ public class MyCartActivity extends AppCompatActivity {
             mTvNoItems.setVisibility(View.VISIBLE);
             mBtnPproceedtopay.setEnabled(false);
             mBtnContinueorde.setEnabled(false);
+        }else {
+            myCartAdapter = new MyCartAdapter(this, myCartArrayList , restaurentMenuDatabase,this);
+            mRecyclerViewCart.setLayoutManager(new LinearLayoutManager(this));
+            mRecyclerViewCart.setAdapter(myCartAdapter);
         }
-
-        myCartAdapter = new MyCartAdapter(this, myCartArrayList , restaurentMenuDatabase);
-        mRecyclerViewCart.setLayoutManager(new LinearLayoutManager(this));
-        mRecyclerViewCart.setAdapter(myCartAdapter);
-
     }
+
+    @Override
+    public void setValues(double total) {
+            mTvTotalAMount.setText(""+total);
+    }
+
+
 }

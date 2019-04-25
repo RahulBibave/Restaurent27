@@ -17,14 +17,20 @@ public interface MyCartDao {
     List<MyCart> getAll();
 
     @Insert
-    void insert(MyCart task);
+    void insert(MyCart myCart);
 
     @Delete
-    void delete(MyCart task);
+    void delete(MyCart myCart);
 
     @Query("DELETE FROM MyCart WHERE id = :id")
     void deleteByUserId(int id);
 
     @Update
-    void update(MyCart task);
+    void update(MyCart myCart);
+
+    @Query("UPDATE MyCart SET itemQuantity = :quantity WHERE id =:id")
+    void updateById(int id , int quantity );
+
+    @Query("SELECT SUM(itemPrice) FROM MyCart WHERE tableNo = :tableNo")
+    double getTotal(int tableNo);
 }

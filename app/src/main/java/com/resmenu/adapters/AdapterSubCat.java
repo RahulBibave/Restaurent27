@@ -23,10 +23,10 @@ import java.util.ArrayList;
 
 public class AdapterSubCat extends RecyclerView.Adapter<AdapterSubCat.ViewHolderKitchen> {
 
-    Context mContext;
-    ArrayList<MenuItem> menuItemArrayList;
+    private Context mContext;
+    private ArrayList<MenuItem> menuItemArrayList;
 
-    public AdapterSubCat(Context mContext , ArrayList<MenuItem> menuItemArrayList) {
+    public AdapterSubCat(Context mContext, ArrayList<MenuItem> menuItemArrayList) {
         this.mContext = mContext;
         this.menuItemArrayList = menuItemArrayList;
     }
@@ -34,23 +34,23 @@ public class AdapterSubCat extends RecyclerView.Adapter<AdapterSubCat.ViewHolder
     @NonNull
     @Override
     public ViewHolderKitchen onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-       View view= LayoutInflater.from(mContext).inflate(R.layout.menu_cat_view,viewGroup,false);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.menu_cat_view, viewGroup, false);
         return new ViewHolderKitchen(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final ViewHolderKitchen viewHolderKitchen, int position) {
-        final MenuItem item=menuItemArrayList.get(position);
-        viewHolderKitchen.tvMenuTitle.setText(item.getItemName());
-        viewHolderKitchen.mTvMenuSubTitle.setText(item.getItemDescription());
-        viewHolderKitchen.mRatingBarMenu.setRating(item.getItemRating());
-        viewHolderKitchen.mTvPrice.setText("\u20B9"+item.getItemPrize());
+    public void onBindViewHolder(@NonNull final ViewHolderKitchen viewHolderKitchen, final int i) {
+        final int position = viewHolderKitchen.getAdapterPosition();
+        viewHolderKitchen.tvMenuTitle.setText(menuItemArrayList.get(position).getItemName());
+        viewHolderKitchen.mTvMenuSubTitle.setText(menuItemArrayList.get(position).getItemDescription());
+        viewHolderKitchen.mRatingBarMenu.setRating(menuItemArrayList.get(position).getItemRating());
+        viewHolderKitchen.mTvPrice.setText("\u20B9" + menuItemArrayList.get(position).getItemPrize());
         viewHolderKitchen.mBtnAddToCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 MyCart myCart = new MyCart();
-                myCart.setMenuName(item.getItemName());
-                myCart.setMenuPrice(Double.parseDouble(item.getItemPrize()));
+                myCart.setMenuName(menuItemArrayList.get(position).getItemName());
+                myCart.setMenuPrice(Double.parseDouble(menuItemArrayList.get(position).getItemPrize()));
                 myCart.setItemQuantity(1);
                 // todo need to update with real time data
                 myCart.setWaiterId(1);
@@ -65,7 +65,7 @@ public class AdapterSubCat extends RecyclerView.Adapter<AdapterSubCat.ViewHolder
             }
         });
         //  viewHolderKitchen.imageView.clearColorFilter();
-        Picasso.with(mContext).load(item.getItemPic()).into(viewHolderKitchen.imageView, new Callback() {
+        Picasso.with(mContext).load(menuItemArrayList.get(position).getItemPic()).into(viewHolderKitchen.imageView, new Callback() {
             @Override
             public void onSuccess() {
 
@@ -73,7 +73,7 @@ public class AdapterSubCat extends RecyclerView.Adapter<AdapterSubCat.ViewHolder
 
             @Override
             public void onError() {
-            viewHolderKitchen.imageView.setImageDrawable(mContext.getDrawable(R.drawable.facebook));
+                viewHolderKitchen.imageView.setImageDrawable(mContext.getDrawable(R.drawable.facebook));
             }
         });
 
@@ -85,14 +85,15 @@ public class AdapterSubCat extends RecyclerView.Adapter<AdapterSubCat.ViewHolder
     }
 
 
-    public class ViewHolderKitchen extends RecyclerView.ViewHolder{
+    class ViewHolderKitchen extends RecyclerView.ViewHolder {
         ImageView imageView;
         CustomButton mBtnAddToCart;
-        CustomTextView tvMenuTitle , mTvMenuSubTitle , mTvPrice;
+        CustomTextView tvMenuTitle, mTvMenuSubTitle, mTvPrice;
         RatingBar mRatingBarMenu;
-        public ViewHolderKitchen(@NonNull View itemView) {
+
+        ViewHolderKitchen(@NonNull View itemView) {
             super(itemView);
-            imageView=itemView.findViewById(R.id.imageView_menu);
+            imageView = itemView.findViewById(R.id.imageView_menu);
             tvMenuTitle = itemView.findViewById(R.id.textView_menu_title);
             mRatingBarMenu = itemView.findViewById(R.id.ratingBarMenu);
             mTvMenuSubTitle = itemView.findViewById(R.id.textView_menu_description);

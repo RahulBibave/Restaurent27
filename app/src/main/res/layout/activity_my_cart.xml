@@ -56,14 +56,66 @@
 
     </android.support.constraint.ConstraintLayout>
 
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycler_virw_cart"
+    <ScrollView
+        app:layout_constraintBottom_toTopOf="@+id/btn_proceedtopay"
+        app:layout_constraintTop_toBottomOf="@+id/cl_child"
+        app:layout_constraintLeft_toLeftOf="parent"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/cl_child">
+        android:layout_height="0dp">
 
-    </android.support.v7.widget.RecyclerView>
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/cl_recycler_layout"
+        app:layout_constraintTop_toBottomOf="@+id/cl_child"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="0dp">
+
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_virw_cart"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+        </android.support.v7.widget.RecyclerView>
+
+        <android.support.v7.widget.CardView
+            app:layout_constraintTop_toBottomOf="@+id/recycler_virw_cart"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </android.support.v7.widget.CardView>
+
+        <com.resmenu.customViews.CustomTextView
+            android:id="@+id/txt_amount"
+            android:text="Total Amount"
+            android:padding="10dp"
+            android:textSize="16sp"
+            app:fontType="gotham_medium"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/recycler_virw_cart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <com.resmenu.customViews.CustomTextView
+            android:id="@+id/tv_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="000.00"
+            android:textSize="16sp"
+            app:fontType="gotham_medium"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/recycler_virw_cart" />
+
+    </android.support.constraint.ConstraintLayout>
+    </ScrollView>
+
+
+
 
     <com.resmenu.customViews.CustomTextView
         android:id="@+id/tv_no_items"
@@ -71,6 +123,7 @@
         android:layout_height="wrap_content"
         android:text="No items found"
         android:textSize="25sp"
+        android:layout_marginBottom="100dp"
         app:fontType="gotham_medium"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -17,10 +17,12 @@ public class AdapterHorizontal extends RecyclerView.Adapter<AdapterHorizontal.Vi
 
     Context mContext;
     ArrayList<String> arrayListMenus;
+    String menu_name;
 
-    public AdapterHorizontal(Context mContext , ArrayList<String> arrayListMenus) {
+    public AdapterHorizontal(Context mContext , ArrayList<String> arrayListMenus, String menu_name) {
         this.mContext = mContext;
         this.arrayListMenus = arrayListMenus;
+        this.menu_name = menu_name;
     }
     public AdapterHorizontal(Context mContext) {
         this.mContext = mContext;
@@ -38,7 +40,11 @@ public class AdapterHorizontal extends RecyclerView.Adapter<AdapterHorizontal.Vi
 
             viewHolderKitchen.tv_menu_name.setText(arrayListMenus.get(position));
 
-            final int menu_type = viewHolderKitchen.getPosition();
+            final int menu_type = viewHolderKitchen.getAdapterPosition();
+
+            if (menu_name.equalsIgnoreCase(arrayListMenus.get(position))){
+                viewHolderKitchen.tv_menu_name.setTextColor(mContext.getResources().getColor(R.color.colorPrimary));
+            }
 
             viewHolderKitchen.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

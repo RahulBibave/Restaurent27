@@ -70,6 +70,7 @@ public class AdapterMenu extends RecyclerView.Adapter<AdapterMenu.ViewHolderMenu
             public void onClick(View v) {
                 Intent intent=new Intent(mContext, AllMenuActivity.class);
                 intent.putExtra("menu_id",menu.getItemTypeid());
+                intent.putExtra("menu_name",menu.getItemTypeName());
                 intent.putStringArrayListExtra("menu_list",stringArrayList);
                 mContext.startActivity(intent);
             }
