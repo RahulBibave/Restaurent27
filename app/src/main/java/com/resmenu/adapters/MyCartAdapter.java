@@ -73,11 +73,11 @@ public class MyCartAdapter extends RecyclerView.Adapter<MyCartAdapter.ViewHolder
         public ViewHolderMyCart(@NonNull View itemView) {
             super(itemView);
             mItemName = itemView.findViewById(R.id.txt_item_name);
-            mMinus = itemView.findViewById(R.id.minus);
+          /*  mMinus = itemView.findViewById(R.id.minus);
             mPlus = itemView.findViewById(R.id.plus);
             mQuantity = itemView.findViewById(R.id.quantity);
             mTotal = itemView.findViewById(R.id.total);
-            mImgCancle = itemView.findViewById(R.id.imageView_cancle);
+            mImgCancle = itemView.findViewById(R.id.imageView_cancle);*/
 
             mPlus.setOnClickListener(new View.OnClickListener() {
                 @Override

@@ -2,6 +2,7 @@ package com.resmenu.activity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -25,16 +27,26 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.HashMap;
+import java.util.Hashtable;
+import java.util.Map;
+
 public class MainActivity extends AppCompatActivity {
     private Button button_login;
     private RequestQueue mRequestQueue;
     private EditText mEdtID, mEdtPass;
-    String userid = "gan1234", userPass = "leo_123";
+    String userid = "101-101", userPass = "Admin";
+SharedPreferenceManager sharedPreferenceManager;
+
+public static final String ACCESS_TOKEN = null;
+public static final String PREF_NAME = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        sharedPreferenceManager = new  SharedPreferenceManager();
 
 //        String hotel_id = sharedPreferenceManager.get(AppConstants.SHaredPrefKeys.LoginKey,"0");
 //        int role = sharedPreferenceManager.getInt(AppConstants.SHaredPrefKeys.RoleKey);
@@ -140,7 +152,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void Login() {
         mRequestQueue = Volley.newRequestQueue(this);
-        final StringRequest request = new StringRequest(Request.Method.GET, ApiUrls.mUrlLogin + "UserName=" + mEdtID.getText().toString() + "&Password=" + mEdtPass.getText().toString(), new Response.Listener<String>() {
+        final StringRequest request = new StringRequest(Request.Method.POST, ApiUrls.mUrlLogin , new Response.Listener<String>() {
             @Override
             public void onResponse(String s) {
 
@@ -149,33 +161,28 @@ public class MainActivity extends AppCompatActivity {
                 try {
 
                     JSONObject object = new JSONObject(s);
-                    int sucess_code = object.getInt("success");
+                    String access_token = object.getString("access_token");
+                    String token_type = object.getString("token_type");
+                    String expires_in = object.getString("expires_in");
+                    String userName = object.getString("userName");
+                    String RoleName = object.getString("RoleName");
+                    String connectionString = object.getString("connectionString");
+                    String issued = object.getString(".issued");
+                    String expires = object.getString(".expires");
 
-                    if (sucess_code == 0) {
+                    SharedPreferences.Editor editor = getSharedPreferences(PREF_NAME, MODE_PRIVATE).edit();
+                    editor.putString(ACCESS_TOKEN, access_token);
+                    editor.apply();
 
-                        final AlertDialog.Builder aleartDialod = new AlertDialog.Builder(MainActivity.this);
-                        aleartDialod.setTitle("Login Failed");
-                        aleartDialod.setMessage("Try with valid Restaurent ID and Password");
-                        aleartDialod.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
 
-                            }
-                        });
-                        aleartDialod.create().show();
-
-                    } else if (sucess_code == 1) {
-
-                        showAlertDialogButtonClicked();
-                        JSONArray array = object.getJSONArray("result");
-                        Log.e("dddddddddd", "" + array.toString());
-                        for (int i = 0; i < array.length(); i++) {
-                            JSONObject jsonObject = array.getJSONObject(i);
-                            String hotel_id = jsonObject.getString("HotelId");
-                            Log.e("Hotel_id", "" + hotel_id);
-//                            SharedPreferenceManager.storeInt(AppConstants.SHaredPrefKeys.LoginKey,hotel_id);
-                        }
+                    if (access_token!=null){
+                        Intent intent = new Intent(MainActivity.this,TablesActivity.class);
+                        intent.putExtra("role", "2");
+                        startActivity(intent);
+//                        finish();
                     }
+
+                    Log.e("Login responce", "String responce:- " + access_token);
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -189,8 +196,36 @@ public class MainActivity extends AppCompatActivity {
                 Log.e("saddd", volleyError.toString());
 
             }
-        });
+        }) {
 
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("username", "101-101");
+                params.put("password", "Admin");
+                params.put("grant_type", "password");
+                return params;
+            }
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                // Removed this line if you dont need it or Use application/json
+                params.put("Content-Type", "application/x-www-form-urlencoded");
+                return params;
+            }
+
+
+        };
         mRequestQueue.add(request);
     }
+
+    public static void store(String key, String value) {
+
+
+    }
 }
+/*   params.put("username","username");
+                params.put("password","Admin");
+                params.put("grant_type","password");
+*/

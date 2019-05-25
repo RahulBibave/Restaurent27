@@ -3,18 +3,15 @@
     package="com.resmenu">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.INTERNET" />
-
+    <uses-permission android:name="android.permission.INTERNET"/>
     <application
-        android:name=".base.ResMenuApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
-        android:usesCleartextTraffic="true">
-        <activity android:name=".activity.MyCartActivity"></activity>
+        android:usesCleartextTraffic="true"
+        android:theme="@style/AppTheme">
         <activity android:name=".activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,12 +20,14 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.SplashActivity" />
-        <activity android:name=".activity.TablesActivity" />
-        <activity android:name=".activity.ActivityKitchen" />
-        <activity android:name=".activity.Activity_Menu" />
-        <activity android:name=".activity.Activity_Feedback" />
-        <activity android:name=".activity.Activity_WaiterLanding" />
-        <activity android:name=".activity.AllMenuActivity" />
+        <activity android:name=".activity.TablesActivity"/>
+        <activity android:name=".activity.ActivityKitchen"/>
+        <activity android:name=".activity.Activity_Menu"/>
+        <activity android:name=".activity.Activity_Feedback"/>
+        <activity android:name=".activity.Activity_WaiterLanding"/>
+        <activity android:name=".activity.AllMenuActivity"/>
+
+
     </application>
 
 </manifest>

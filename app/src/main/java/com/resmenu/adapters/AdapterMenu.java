@@ -33,7 +33,7 @@ public class AdapterMenu extends RecyclerView.Adapter<AdapterMenu.ViewHolderMenu
         this.mContext = mContext;
 
         for (int j = 0; j <arrayList.size() ; j++) {
-            stringArrayList.add(arrayList.get(j).getItemTypeName());
+            stringArrayList.add(arrayList.get(j).getCategoryName());
         }
     }
 
@@ -48,7 +48,7 @@ public class AdapterMenu extends RecyclerView.Adapter<AdapterMenu.ViewHolderMenu
     public void onBindViewHolder(@NonNull final ViewHolderMenu viewHolderMenu, int i) {
         final Menu menu=arrayList.get(i);
 
-        Picasso.with(mContext).load(menu.getItemTypePic())
+        /*Picasso.with(mContext).load(menu.getItemTypePic())
                 .into(viewHolderMenu.imageView, new Callback() {
                     @Override
                     public void onSuccess() {
@@ -60,17 +60,17 @@ public class AdapterMenu extends RecyclerView.Adapter<AdapterMenu.ViewHolderMenu
 
                       viewHolderMenu.imageView.setImageDrawable(mContext.getDrawable(R.drawable.menu_bg));
                     }
-                });
+                });*/
 
 
       //  viewHolderMenu.imageView.setImageBitmap(getBitmapfromUrl(menu.getItemTypePic()));
-        viewHolderMenu.txt_menu.setText(menu.getItemTypeName());
+        viewHolderMenu.txt_menu.setText(menu.getCategoryName());
         viewHolderMenu.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(mContext, AllMenuActivity.class);
-                intent.putExtra("menu_id",menu.getItemTypeid());
-                intent.putExtra("menu_name",menu.getItemTypeName());
+                intent.putExtra("menu_id",menu.getCategoryId());
+                intent.putExtra("menu_name",menu.getCategoryName());
                 intent.putStringArrayListExtra("menu_list",stringArrayList);
                 mContext.startActivity(intent);
             }

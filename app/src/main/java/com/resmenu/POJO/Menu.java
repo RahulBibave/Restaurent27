@@ -3,35 +3,46 @@ package com.resmenu.POJO;
 import java.io.Serializable;
 
 public class Menu implements Serializable {
-    String ItemTypeid,ItemTypeName,ItemTypePic;
+    Integer CategoryId;
+    String CategoryName,CategoryDescription;
+    Boolean Active;
 
-    public Menu(String itemTypeid, String itemTypeName, String itemTypePic) {
-        ItemTypeid = itemTypeid;
-        ItemTypeName = itemTypeName;
-        ItemTypePic = itemTypePic;
+    public Menu(Integer categoryId, String categoryName, String categoryDescription, Boolean active) {
+        CategoryId = categoryId;
+        CategoryName = categoryName;
+        CategoryDescription = categoryDescription;
+        Active = active;
     }
 
-    public String getItemTypeid() {
-        return ItemTypeid;
+    public void setCategoryId(Integer categoryId) {
+        CategoryId = categoryId;
     }
 
-    public void setItemTypeid(String itemTypeid) {
-        ItemTypeid = itemTypeid;
+    public void setCategoryName(String categoryName) {
+        CategoryName = categoryName;
     }
 
-    public String getItemTypeName() {
-        return ItemTypeName;
+    public void setCategoryDescription(String categoryDescription) {
+        CategoryDescription = categoryDescription;
     }
 
-    public void setItemTypeName(String itemTypeName) {
-        ItemTypeName = itemTypeName;
+    public void setActive(Boolean active) {
+        Active = active;
     }
 
-    public String getItemTypePic() {
-        return ItemTypePic;
+    public Integer getCategoryId() {
+        return CategoryId;
     }
 
-    public void setItemTypePic(String itemTypePic) {
-        ItemTypePic = itemTypePic;
+    public String getCategoryName() {
+        return CategoryName;
+    }
+
+    public String getCategoryDescription() {
+        return CategoryDescription;
+    }
+
+    public Boolean getActive() {
+        return Active;
     }
 }

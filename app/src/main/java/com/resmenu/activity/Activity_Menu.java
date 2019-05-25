@@ -1,5 +1,6 @@
 package com.resmenu.activity;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -7,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -23,6 +25,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
+import static com.resmenu.activity.MainActivity.ACCESS_TOKEN;
+import static com.resmenu.activity.MainActivity.PREF_NAME;
 
 public class Activity_Menu extends AppCompatActivity {
 
@@ -30,10 +37,15 @@ public class Activity_Menu extends AppCompatActivity {
     RequestQueue mRequestQueue;
     private ArrayList<Menu> arrayList;
     private AdapterMenu adapterMenu;
+    String accesstoken;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
+
+        SharedPreferences prefs = getSharedPreferences(PREF_NAME, MODE_PRIVATE);
+        accesstoken = prefs.getString(ACCESS_TOKEN, null);
+
         init();
     }
 
@@ -46,21 +58,29 @@ public class Activity_Menu extends AppCompatActivity {
             @Override
             public void onResponse(String s) {
 
-                Log.e("saddd",""+s.toString());
+                Log.e("saddd",""+s);
                    arrayList=new ArrayList<Menu>();
                 try {
                     JSONObject object = new JSONObject(s);
-                    JSONArray array =object.getJSONArray("result");
+                    Boolean Status = object.getBoolean("Status");
+
+                    if (Status.equals(true)) {
+
+
+                    JSONArray array =object.getJSONArray("Data");
                     Log.e("dddddddddd",""+array.toString());
                     for (int i = 0 ; i<array.length();i++){
                         JSONObject jsonObject=array.getJSONObject(i);
-                        String pic=jsonObject.getString("ItemTypePic");
-                        int id=jsonObject.getInt("ItemTypeid");
-                        String ItemTypeName=jsonObject.getString("ItemTypeName");
-                        Menu menu=new Menu(id+"",ItemTypeName,pic);
+                        int id=jsonObject.getInt("CategoryId");
+                        String ItemTypeName=jsonObject.getString("CategoryName");
+                        String categoryDesc = jsonObject.getString("CategoryDescription");
+//                        String pic=jsonObject.getString("");
+                        Boolean Menustatus = jsonObject.getBoolean("Active");
+                        Menu menu=new Menu(id,ItemTypeName,categoryDesc,Menustatus);
                         arrayList.add(menu);
-
                     }
+                    }
+
                     adapterMenu=new AdapterMenu(arrayList,Activity_Menu.this);
                     mRecyclerViewMenu.setAdapter(adapterMenu);
 
@@ -75,8 +95,19 @@ public class Activity_Menu extends AppCompatActivity {
                 Log.e("saddd",volleyError.toString());
 
             }
-        });
+        }){
 
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                // Removed this line if you dont need it or Use application/json
+                params.put("Authorization","Bearer "+ accesstoken);
+                return params;
+            }
+
+
+        };
         mRequestQueue.add(request);
 
 
