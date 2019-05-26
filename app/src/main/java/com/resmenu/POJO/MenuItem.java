@@ -3,17 +3,24 @@ package com.resmenu.POJO;
 import java.io.Serializable;
 
 public class MenuItem implements Serializable {
-    int ItemId;
-    float ItemRating;
-    String ItemName,ItemPic,ItemDescription,ItemPrize;
 
-    public MenuItem(int itemId, int itemRating, String itemName, String itemPic, String itemDescription, String itemPrize) {
+    int ItemId;
+    String ItemName;
+    String ItemDescription;
+    Double Price, Disscount;
+    Boolean IsActive;
+    Double Quantity;
+    String Img;
+
+    public MenuItem(int itemId, String itemName, String itemDescription, Double price, Double disscount, Boolean isActive, Double quantity, String img) {
         ItemId = itemId;
-        ItemRating = itemRating;
         ItemName = itemName;
-        ItemPic = itemPic;
         ItemDescription = itemDescription;
-        ItemPrize = itemPrize;
+        Price = price;
+        Disscount = disscount;
+        IsActive = isActive;
+        Quantity = quantity;
+        Img = img;
     }
 
     public int getItemId() {
@@ -24,28 +31,12 @@ public class MenuItem implements Serializable {
         ItemId = itemId;
     }
 
-    public float getItemRating() {
-        return ItemRating;
-    }
-
-    public void setItemRating(int itemRating) {
-        ItemRating = itemRating;
-    }
-
     public String getItemName() {
         return ItemName;
     }
 
     public void setItemName(String itemName) {
         ItemName = itemName;
-    }
-
-    public String getItemPic() {
-        return ItemPic;
-    }
-
-    public void setItemPic(String itemPic) {
-        ItemPic = itemPic;
     }
 
     public String getItemDescription() {
@@ -56,11 +47,43 @@ public class MenuItem implements Serializable {
         ItemDescription = itemDescription;
     }
 
-    public String getItemPrize() {
-        return ItemPrize;
+    public Double getPrice() {
+        return Price;
     }
 
-    public void setItemPrize(String itemPrize) {
-        ItemPrize = itemPrize;
+    public void setPrice(Double price) {
+        Price = price;
+    }
+
+    public Double getDisscount() {
+        return Disscount;
+    }
+
+    public void setDisscount(Double disscount) {
+        Disscount = disscount;
+    }
+
+    public Boolean getActive() {
+        return IsActive;
+    }
+
+    public void setActive(Boolean active) {
+        IsActive = active;
+    }
+
+    public Double getQuantity() {
+        return Quantity;
+    }
+
+    public void setQuantity(Double quantity) {
+        Quantity = quantity;
+    }
+
+    public String getImg() {
+        return Img;
+    }
+
+    public void setImg(String img) {
+        Img = img;
     }
 }

@@ -83,6 +83,7 @@
     <com.resmenu.customViews.CustomTextView
         android:id="@+id/forgot_pass"
         android:layout_marginRight="25dp"
+        android:visibility="invisible"
         android:text="@string/forgot_password"
         app:fontType="gotham_medium"
         android:layout_width="wrap_content"

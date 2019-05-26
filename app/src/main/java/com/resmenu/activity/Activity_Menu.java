@@ -71,11 +71,11 @@ public class Activity_Menu extends AppCompatActivity {
                     Log.e("dddddddddd",""+array.toString());
                     for (int i = 0 ; i<array.length();i++){
                         JSONObject jsonObject=array.getJSONObject(i);
-                        int id=jsonObject.getInt("CategoryId");
-                        String ItemTypeName=jsonObject.getString("CategoryName");
-                        String categoryDesc = jsonObject.getString("CategoryDescription");
+                        int id=jsonObject.getInt("MenuId");
+                        String ItemTypeName=jsonObject.getString("MenuName");
+                        String categoryDesc = jsonObject.getString("MenuDescription");
 //                        String pic=jsonObject.getString("");
-                        Boolean Menustatus = jsonObject.getBoolean("Active");
+                        Boolean Menustatus = jsonObject.getBoolean("IsActive");
                         Menu menu=new Menu(id,ItemTypeName,categoryDesc,Menustatus);
                         arrayList.add(menu);
                     }

@@ -18,15 +18,16 @@ public class AdapterHorizontal extends RecyclerView.Adapter<AdapterHorizontal.Vi
     Context mContext;
     ArrayList<String> arrayListMenus;
     String menu_name;
+    onClickMenu onClickMenu;
 
-    public AdapterHorizontal(Context mContext , ArrayList<String> arrayListMenus, String menu_name) {
+    public AdapterHorizontal(Context mContext, ArrayList<String> arrayListMenus, String menu_name, AdapterHorizontal.onClickMenu onClickMenu) {
         this.mContext = mContext;
         this.arrayListMenus = arrayListMenus;
         this.menu_name = menu_name;
+        this.onClickMenu = onClickMenu;
     }
-    public AdapterHorizontal(Context mContext) {
-        this.mContext = mContext;
-    }
+
+
 
     @NonNull
     @Override
@@ -36,7 +37,7 @@ public class AdapterHorizontal extends RecyclerView.Adapter<AdapterHorizontal.Vi
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolderKitchen viewHolderKitchen, int position) {
+    public void onBindViewHolder(@NonNull final ViewHolderKitchen viewHolderKitchen, final int position) {
 
             viewHolderKitchen.tv_menu_name.setText(arrayListMenus.get(position));
 
@@ -49,9 +50,13 @@ public class AdapterHorizontal extends RecyclerView.Adapter<AdapterHorizontal.Vi
             viewHolderKitchen.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    onClickMenu.itemClicked(v,position);
+                    //viewHolderKitchen.tv_menu_name.setTextColor(mContext.getResources().getColor(R.color.colorPrimary));
                     Toast.makeText(mContext, ""+menu_type, Toast.LENGTH_SHORT).show();
+
                 }
             });
+
 
     }
 
@@ -67,5 +72,9 @@ public class AdapterHorizontal extends RecyclerView.Adapter<AdapterHorizontal.Vi
             super(itemView);
             tv_menu_name = itemView.findViewById(R.id.tv_menu_name);
         }
+    }
+
+    public  interface onClickMenu{
+        void itemClicked(View view,int pos);
     }
 }

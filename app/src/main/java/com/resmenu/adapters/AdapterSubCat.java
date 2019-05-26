@@ -43,14 +43,13 @@ public class AdapterSubCat extends RecyclerView.Adapter<AdapterSubCat.ViewHolder
         final int position = viewHolderKitchen.getAdapterPosition();
         viewHolderKitchen.tvMenuTitle.setText(menuItemArrayList.get(position).getItemName());
         viewHolderKitchen.mTvMenuSubTitle.setText(menuItemArrayList.get(position).getItemDescription());
-        viewHolderKitchen.mRatingBarMenu.setRating(menuItemArrayList.get(position).getItemRating());
-        viewHolderKitchen.mTvPrice.setText("\u20B9" + menuItemArrayList.get(position).getItemPrize());
+        viewHolderKitchen.mTvPrice.setText("\u20B9" + menuItemArrayList.get(position).getPrice());
         viewHolderKitchen.mBtnAddToCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 MyCart myCart = new MyCart();
                 myCart.setMenuName(menuItemArrayList.get(position).getItemName());
-                myCart.setMenuPrice(Double.parseDouble(menuItemArrayList.get(position).getItemPrize()));
+                myCart.setMenuPrice(menuItemArrayList.get(position).getPrice());
                 myCart.setItemQuantity(1);
                 // todo need to update with real time data
                 myCart.setWaiterId(1);
@@ -65,7 +64,7 @@ public class AdapterSubCat extends RecyclerView.Adapter<AdapterSubCat.ViewHolder
             }
         });
         //  viewHolderKitchen.imageView.clearColorFilter();
-        Picasso.with(mContext).load(menuItemArrayList.get(position).getItemPic()).into(viewHolderKitchen.imageView, new Callback() {
+        Picasso.with(mContext).load(menuItemArrayList.get(position).getImg()).into(viewHolderKitchen.imageView, new Callback() {
             @Override
             public void onSuccess() {
 

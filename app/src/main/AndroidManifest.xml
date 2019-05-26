@@ -26,7 +26,7 @@
         <activity android:name=".activity.Activity_Feedback"/>
         <activity android:name=".activity.Activity_WaiterLanding"/>
         <activity android:name=".activity.AllMenuActivity"/>
-
+    <activity android:name=".activity.MyCartActivity"/>
 
     </application>
 

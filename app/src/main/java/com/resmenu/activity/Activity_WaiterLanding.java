@@ -2,6 +2,7 @@ package com.resmenu.activity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
@@ -12,6 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -27,6 +29,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
+import static com.resmenu.activity.MainActivity.ACCESS_TOKEN;
+import static com.resmenu.activity.MainActivity.PREF_NAME;
 
 public class Activity_WaiterLanding extends AppCompatActivity {
 
@@ -36,11 +43,14 @@ public class Activity_WaiterLanding extends AppCompatActivity {
     private TextView txtWaiter;
     ArrayList<String> arrayListStaff;
     private LinearLayout myOrders;
+    private String accesstoken;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_waiter_landing);
+        SharedPreferences prefs = getSharedPreferences(PREF_NAME, MODE_PRIVATE);
+        accesstoken = prefs.getString(ACCESS_TOKEN, null);
         getStaff();
         init();
         mMenu.setOnClickListener(new View.OnClickListener() {
@@ -120,8 +130,19 @@ public class Activity_WaiterLanding extends AppCompatActivity {
                 Log.e("saddd", volleyError.toString());
 
             }
-        });
+        }){
 
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                // Removed this line if you dont need it or Use application/json
+                params.put("Authorization","Bearer "+ accesstoken);
+                return params;
+            }
+
+
+        };
         mRequestQueue.add(request);
     }
 

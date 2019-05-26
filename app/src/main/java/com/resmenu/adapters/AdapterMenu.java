@@ -27,6 +27,7 @@ public class AdapterMenu extends RecyclerView.Adapter<AdapterMenu.ViewHolderMenu
     ArrayList<Menu>arrayList;
     Context mContext;
     final ArrayList<String> stringArrayList = new ArrayList<>();
+    final ArrayList<Integer>arrayListID=new ArrayList<>();
 
     public AdapterMenu(ArrayList<Menu> arrayList, Context mContext) {
         this.arrayList = arrayList;
@@ -34,6 +35,7 @@ public class AdapterMenu extends RecyclerView.Adapter<AdapterMenu.ViewHolderMenu
 
         for (int j = 0; j <arrayList.size() ; j++) {
             stringArrayList.add(arrayList.get(j).getCategoryName());
+            arrayListID.add(arrayList.get(j).getCategoryId());
         }
     }
 
@@ -72,6 +74,7 @@ public class AdapterMenu extends RecyclerView.Adapter<AdapterMenu.ViewHolderMenu
                 intent.putExtra("menu_id",menu.getCategoryId());
                 intent.putExtra("menu_name",menu.getCategoryName());
                 intent.putStringArrayListExtra("menu_list",stringArrayList);
+                intent.putIntegerArrayListExtra("menuIDList",arrayListID);
                 mContext.startActivity(intent);
             }
         });

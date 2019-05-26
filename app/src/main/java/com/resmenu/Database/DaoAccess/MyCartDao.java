@@ -12,8 +12,7 @@ import java.util.List;
 
 @Dao
 public interface MyCartDao {
-
-    @Query("SELECT * FROM mycart")
+        @Query("SELECT * FROM mycart")
     List<MyCart> getAll();
 
     @Insert
