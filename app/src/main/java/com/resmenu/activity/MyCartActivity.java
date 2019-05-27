@@ -1,21 +1,45 @@
 package com.resmenu.activity;
 
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.resmenu.Database.Entity.MyCart;
 import com.resmenu.Database.RestaurentMenuDatabase;
+import com.resmenu.POJO.MenuItem;
 import com.resmenu.R;
+import com.resmenu.adapters.AdapterSubCat;
 import com.resmenu.adapters.MyCartAdapter;
+import com.resmenu.constants.ApiUrls;
 import com.resmenu.customViews.CustomButton;
 import com.resmenu.customViews.CustomTextView;
 import com.resmenu.interfaces.DataTransfer;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import static com.resmenu.activity.MainActivity.ACCESS_TOKEN;
+import static com.resmenu.activity.MainActivity.PREF_NAME;
 
 public class MyCartActivity extends AppCompatActivity implements DataTransfer {
 
@@ -28,11 +52,16 @@ public class MyCartActivity extends AppCompatActivity implements DataTransfer {
     private CustomButton mBtnPproceedtopay;
     private CustomButton mBtnContinueorde;
     private CustomTextView mTvNoItems , mTvTotalAMount;
+    private RequestQueue mRequestQueue;
+    private String accesstoken;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_cart);
+        SharedPreferences prefs = getSharedPreferences(PREF_NAME, MODE_PRIVATE);
+        accesstoken = prefs.getString(ACCESS_TOKEN, null);
 
         mBtnPproceedtopay = findViewById(R.id.btn_proceedtopay);
         mBtnContinueorde = findViewById(R.id.btn_continueorder);
@@ -48,7 +77,8 @@ public class MyCartActivity extends AppCompatActivity implements DataTransfer {
         mBtnContinueorde.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                submitOrder();
+                //finish();
             }
         });
 
@@ -75,6 +105,144 @@ public class MyCartActivity extends AppCompatActivity implements DataTransfer {
         mTvTotalAMount.setText(""+total);
     }
 
+    public void submitOrder(){
+
+        mRequestQueue = Volley.newRequestQueue(this);
+        final StringRequest request = new StringRequest(Request.Method.POST, ApiUrls.mUrlSubmitOrder, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String s) {
+                progressDialog.dismiss();
+                RestaurentMenuDatabase menuDatabase;
+
+                Log.e("sadddsasasa", "" + s.toString());
+
+                try {
+
+                    JSONObject object = new JSONObject(s);
+                    Boolean sucess_code = object.getBoolean("Status");
+                    String msg=object.getString("Message");
+                    if (sucess_code.equals(true)) {
+
+                        AlertDialog.Builder builder = new AlertDialog.Builder(MyCartActivity.this);
+                        builder.setMessage(msg)
+                                .setCancelable(false)
+                                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        finish();
+                                        //do things
+                                    }
+                                });
+                        AlertDialog alert = builder.create();
+                        alert.show();
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+                progressDialog.dismiss();
+                Log.e("saddd", volleyError.toString());
+
+            }
+        }) {
+
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                // Removed this line if you dont need it or Use application/json
+                params.put("Authorization", "Bearer " + accesstoken);
+                return params;
+            }
+
+            @Override
+            public byte[] getBody() throws AuthFailureError {
+
+               /* String str = "{\n" +
+                        "\"tableId\":1,\n" +
+                        "\"TotalAmmount\":1200,\n" +
+                        "\"orderBy\":103,\n" +
+                        "\"CustomerName\":\"Mr.Rakesh sharma\",\n" +
+                        "\"customerEmailId\":\"rakesh@gmail.com\",\n" +
+                        "\"MobileNumber\":\"9808982015\",\n" +
+                        "\"Item\":[{\n" +
+                        "\t\t\"ItemId\":1, \n" +
+                        "\t\t\"Price\":60, \n" +
+                        "\t\t\"Disscount\":0.0,\n" +
+                        "\t\t\"Quantity\":2 \n" +
+                        "\t},\n" +
+                        "\t{\n" +
+                        "\t\t\"ItemId\":2, \n" +
+                        "\t\t\"Price\":20, \n" +
+                        "\t\t\"Disscount\":0.0, \n" +
+                        "\t\t\"Quantity\":2 \n" +
+                        "\t},\n" +
+                        "\t{\n" +
+                        "\t\t\"ItemId\":3, \n" +
+                        "\t\t\"Price\":280, \n" +
+                        "\t\t\"Disscount\":0.0, \n" +
+                        "\t\t\"Quantity\":3 \n" +
+                        "\t}\n" +
+                        "   ]\n" +
+                        "}";*/
+               JSONObject jsonObject=new JSONObject();
+                try {
+                    jsonObject.put("TotalAmmount", Double.parseDouble(mTvTotalAMount.getText().toString()));
+                    jsonObject.put("tableId",Activity_WaiterLanding.tableNO);
+                    jsonObject.put("orderBy",Activity_WaiterLanding.waiterID);
+                    jsonObject.put("customerEmailId",Activity_WaiterLanding.email);
+                    jsonObject.put("MobileNumber","9808982015");
+                    jsonObject.put("CustomerName",Activity_WaiterLanding.Cu_name);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                JSONArray jsonArray=new JSONArray();
+                for (int i=0;i<myCartArrayList.size();i++){
+                    JSONObject jsonObject1=new JSONObject();
+                    try {
+                    double diss=0.0;
+                    jsonObject1.put("ItemId",myCartArrayList.get(i).getId());
+                    jsonObject1.put("Price",myCartArrayList.get(i).getMenuPrice());
+                    jsonObject1.put("Disscount",diss);
+                    jsonObject1.put("Quantity",myCartArrayList.get(i).getItemQuantity());
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    jsonArray.put(jsonObject1);
+                }
+
+
+
+
+
+
+                try {
+                    jsonObject.put("Item",jsonArray);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                Log.e("xxxxxxxxxxxxxx",""+jsonObject.toString());
+                String str=jsonObject.toString();
+                return str.getBytes();
+            }
+
+            @Override
+            public String getBodyContentType() {
+                return "application/json; charset=utf-8";
+            }
+        };
+        mRequestQueue.add(request);
+        progressDialog=new ProgressDialog(this);
+        progressDialog.setMessage("Please Wait....");
+        progressDialog.setProgressStyle(progressDialog.STYLE_SPINNER);
+        progressDialog.show();
+    }
 
 /*
 

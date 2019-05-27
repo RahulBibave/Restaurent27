@@ -1,5 +1,6 @@
 package com.resmenu.activity;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -36,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
     private RequestQueue mRequestQueue;
     private EditText mEdtID, mEdtPass;
     String userid = "101-101", userPass = "Admin";
+    private ProgressDialog progressDialog;
 SharedPreferenceManager sharedPreferenceManager;
 
 public static final String ACCESS_TOKEN = null;
@@ -151,11 +153,12 @@ public static final String PREF_NAME = null;
 
 
     public void Login() {
+
         mRequestQueue = Volley.newRequestQueue(this);
         final StringRequest request = new StringRequest(Request.Method.POST, ApiUrls.mUrlLogin , new Response.Listener<String>() {
             @Override
             public void onResponse(String s) {
-
+                progressDialog.dismiss();
                 Log.e("Login responce", "String responce:- " + s);
 
                 try {
@@ -186,13 +189,35 @@ public static final String PREF_NAME = null;
 
                 } catch (JSONException e) {
                     e.printStackTrace();
+                    AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                    builder.setMessage("Login Failed !!")
+                            .setCancelable(false)
+                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                   // finish();
+                                    //do things
+                                }
+                            });
+                    AlertDialog alert = builder.create();
+                    alert.show();
                 }
 
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
-
+                progressDialog.dismiss();
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                builder.setMessage("Login Failed !!")
+                        .setCancelable(false)
+                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                // finish();
+                                //do things
+                            }
+                        });
+                AlertDialog alert = builder.create();
+                alert.show();
                 Log.e("saddd", volleyError.toString());
 
             }
@@ -201,8 +226,8 @@ public static final String PREF_NAME = null;
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("username", "101-101");
-                params.put("password", "Admin");
+                params.put("username",mEdtID.getText().toString() );
+                params.put("password", mEdtPass.getText().toString());
                 params.put("grant_type", "password");
                 return params;
             }
@@ -218,6 +243,10 @@ public static final String PREF_NAME = null;
 
         };
         mRequestQueue.add(request);
+        progressDialog=new ProgressDialog(this);
+        progressDialog.setMessage("Please Wait....");
+        progressDialog.setProgressStyle(progressDialog.STYLE_SPINNER);
+        progressDialog.show();
     }
 
     public static void store(String key, String value) {

@@ -3,15 +3,20 @@ package com.resmenu.activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -23,6 +28,8 @@ import com.android.volley.toolbox.Volley;
 import com.resmenu.POJO.Staff;
 import com.resmenu.R;
 import com.resmenu.constants.ApiUrls;
+import com.resmenu.customViews.CustomButton;
+import com.resmenu.customViews.CustomEditText;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -37,7 +44,163 @@ import static com.resmenu.activity.MainActivity.PREF_NAME;
 
 public class Activity_WaiterLanding extends AppCompatActivity {
 
+    private LinearLayout mMenu, mFeedBack;
+    private RequestQueue mRequestQueue;
+    private Spinner spinner;
+    ArrayList<String> arrayListStaffID;
+    ArrayList<String> arrayListName;
+    private String accesstoken;
+    int waiter_ID;
+    private CustomButton mBtnContinue;
+    private CustomEditText mEdtName,mEdtEmail,mEdtMobile;
+    private String flag="";
+    public static String Cu_name,email,mobile;
+    public static int waiterID,tableNO;
 
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_waiter_landing);
+        SharedPreferences prefs = getSharedPreferences(PREF_NAME, MODE_PRIVATE);
+        accesstoken = prefs.getString(ACCESS_TOKEN, null);
+        getStaff();
+        init();
+        mMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (flag.equals("1")){
+                    Intent intent = new Intent(Activity_WaiterLanding.this, Activity_Menu.class);
+                    startActivity(intent);
+                }
+            }
+        });
+
+        mFeedBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (flag.equals("1")){
+                    Intent intent = new Intent(Activity_WaiterLanding.this, Activity_Feedback.class);
+                    startActivity(intent);
+                }
+
+            }
+        });
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                waiter_ID= Integer.parseInt(arrayListStaffID.get(position));
+                //Toast.makeText(Activity_WaiterLanding.this,waiter_ID+"", Toast.LENGTH_LONG).show();
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+
+        mBtnContinue.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if ((!mEdtName.getText().toString().equals("")) && (!mEdtEmail.getText().toString().equals("")) && (!mEdtMobile.getText().toString().equals(""))){
+                    Cu_name=mEdtName.getText().toString();
+                    email=mEdtEmail.getText().toString();
+                    mobile=mEdtMobile.getText().toString();
+                    waiterID=waiter_ID;
+                    tableNO=1;
+                    flag="1";
+                    mBtnContinue.setBackgroundColor(Color.GRAY);
+                    try {
+                        InputMethodManager imm = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
+                        imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+                    } catch (Exception e) {
+                        // TODO: handle exception
+                    }
+                }
+            }
+        });
+
+    }
+
+    private void init() {
+        mMenu = findViewById(R.id.lin_menu);
+        mFeedBack = findViewById(R.id.lin_feedback);
+        spinner=findViewById(R.id.spinner);
+        mEdtName=findViewById(R.id.edtName);
+        mEdtEmail=findViewById(R.id.edtEmial);
+        mEdtMobile=findViewById(R.id.edtMobile);
+        mBtnContinue=findViewById(R.id.btnContinue);
+
+
+    }
+
+    public void getStaff() {
+        mRequestQueue = Volley.newRequestQueue(Activity_WaiterLanding.this);
+        final StringRequest request = new StringRequest(Request.Method.GET, ApiUrls.mUrlStaff, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String s) {
+
+                Log.e("sadddsasasa", "" + s.toString());
+                arrayListStaffID = new ArrayList<>();
+                arrayListName= new ArrayList<>();
+                try {
+
+                    JSONObject object = new JSONObject(s);
+                    Boolean sucess_code = object.getBoolean("Status");
+                    if (sucess_code.equals(true)) {
+                        JSONArray array = object.getJSONArray("Data");
+                        Log.e("dddddddddd", "" + array.toString());
+                        for (int i = 0; i < array.length(); i++) {
+                            JSONObject jsonObject = array.getJSONObject(i);
+                            int id = jsonObject.getInt("WaiterId");
+                            String name = jsonObject.getString("WaiterName");
+                            // Staff staff = new Staff(name, id);
+                            arrayListStaffID.add(id+"");
+                            arrayListName.add(name);
+
+                        }
+
+                        ArrayAdapter<String> adapter =
+                                new ArrayAdapter<String>(getApplicationContext(),  android.R.layout.simple_spinner_dropdown_item, arrayListName);
+                        adapter.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item);
+
+                        spinner.setAdapter(adapter);
+                    }
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+                Log.e("saddd", volleyError.toString());
+
+            }
+        }){
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+            Map<String, String> params = new HashMap<String, String>();
+            // Removed this line if you dont need it or Use application/json
+            params.put("Authorization","Bearer "+ accesstoken);
+            return params;
+        }
+
+
+    };
+
+        mRequestQueue.add(request);
+    }
+
+    public void displayList() {
+
+    }
+/*
     private LinearLayout mMenu, mFeedBack;
     private RequestQueue mRequestQueue;
     private TextView txtWaiter;
@@ -158,18 +321,18 @@ public class Activity_WaiterLanding extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
 
                 txtWaiter.setText(animals[which]);
-                /*switch (which) {
+                *//*switch (which) {
                     case 0: // horse
                     case 1: // cow
                     case 2: // camel
                     case 3: // sheep
                     case 4: // goat
-                }*/
+                }*//*
             }
         });
 
 // create and show the alert dialog
         AlertDialog dialog = builder.create();
         dialog.show();
-    }
+    }*/
 }

@@ -1,5 +1,6 @@
 package com.resmenu.activity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -55,6 +56,7 @@ public class AllMenuActivity extends AppCompatActivity implements AdapterHorizon
     CustomButton mBtnConfirmOrder;
     CustomButton mBtnViewCart;
     String accesstoken;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,7 +110,7 @@ public class AllMenuActivity extends AppCompatActivity implements AdapterHorizon
         final StringRequest request = new StringRequest(Request.Method.POST, ApiUrls.mUrlSubCategories, new Response.Listener<String>() {
             @Override
             public void onResponse(String s) {
-
+                progressDialog.dismiss();
                 Log.e("sadddsasasa", "" + s.toString());
 
                 try {
@@ -148,6 +150,7 @@ public class AllMenuActivity extends AppCompatActivity implements AdapterHorizon
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
+                progressDialog.dismiss();
                 Log.e("saddd", volleyError.toString());
 
             }
@@ -176,6 +179,10 @@ public class AllMenuActivity extends AppCompatActivity implements AdapterHorizon
             }
         };
         mRequestQueue.add(request);
+        progressDialog=new ProgressDialog(this);
+        progressDialog.setMessage("Please Wait....");
+        progressDialog.setProgressStyle(progressDialog.STYLE_SPINNER);
+        progressDialog.show();
     }
 
     @Override

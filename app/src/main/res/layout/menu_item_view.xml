@@ -13,9 +13,9 @@
         <ImageView
 
             android:id="@+id/img_menu"
-            android:src="@drawable/menu_bg"
+            android:src="@drawable/webp"
             android:scaleType="fitXY"
-            android:alpha="0.7"
+            android:alpha="0.9"
             android:layout_width="match_parent"
             android:layout_height="200dp" />
 

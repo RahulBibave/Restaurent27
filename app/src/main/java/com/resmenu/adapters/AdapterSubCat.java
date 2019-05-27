@@ -1,8 +1,13 @@
 package com.resmenu.adapters;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +24,7 @@ import com.resmenu.customViews.CustomTextView;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class AdapterSubCat extends RecyclerView.Adapter<AdapterSubCat.ViewHolderKitchen> {
@@ -64,7 +70,12 @@ public class AdapterSubCat extends RecyclerView.Adapter<AdapterSubCat.ViewHolder
             }
         });
         //  viewHolderKitchen.imageView.clearColorFilter();
-        Picasso.with(mContext).load(menuItemArrayList.get(position).getImg()).into(viewHolderKitchen.imageView, new Callback() {
+        byte[] decodedString = Base64.decode(menuItemArrayList.get(position).getImg(), Base64.DEFAULT);
+        Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+        viewHolderKitchen.imageView.setImageBitmap(decodedByte);
+
+       // viewHolderKitchen.imageView.setImageBitmap(bm);
+       /* Picasso.with(mContext).load(menuItemArrayList.get(position).getImg()).into(viewHolderKitchen.imageView, new Callback() {
             @Override
             public void onSuccess() {
 
@@ -74,7 +85,7 @@ public class AdapterSubCat extends RecyclerView.Adapter<AdapterSubCat.ViewHolder
             public void onError() {
                 viewHolderKitchen.imageView.setImageDrawable(mContext.getDrawable(R.drawable.facebook));
             }
-        });
+        });*/
 
     }
 

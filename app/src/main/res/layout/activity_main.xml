@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F0E7E7"
+    android:background="@drawable/ic_login_bg_new"
     tools:context=".activity.MainActivity">
 
     <com.resmenu.customViews.CustomTextView

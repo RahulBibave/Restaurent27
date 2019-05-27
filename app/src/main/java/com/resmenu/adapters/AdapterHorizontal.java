@@ -44,7 +44,7 @@ public class AdapterHorizontal extends RecyclerView.Adapter<AdapterHorizontal.Vi
             final int menu_type = viewHolderKitchen.getAdapterPosition();
 
             if (menu_name.equalsIgnoreCase(arrayListMenus.get(position))){
-                viewHolderKitchen.tv_menu_name.setTextColor(mContext.getResources().getColor(R.color.colorPrimary));
+                //viewHolderKitchen.tv_menu_name.setTextColor(mContext.getResources().getColor(R.color.colorPrimary));
             }
 
             viewHolderKitchen.itemView.setOnClickListener(new View.OnClickListener() {
@@ -52,7 +52,7 @@ public class AdapterHorizontal extends RecyclerView.Adapter<AdapterHorizontal.Vi
                 public void onClick(View v) {
                     onClickMenu.itemClicked(v,position);
                     //viewHolderKitchen.tv_menu_name.setTextColor(mContext.getResources().getColor(R.color.colorPrimary));
-                    Toast.makeText(mContext, ""+menu_type, Toast.LENGTH_SHORT).show();
+                   // Toast.makeText(mContext, ""+menu_type, Toast.LENGTH_SHORT).show();
 
                 }
             });
