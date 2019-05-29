@@ -162,33 +162,6 @@ public class MyCartActivity extends AppCompatActivity implements DataTransfer {
             @Override
             public byte[] getBody() throws AuthFailureError {
 
-               /* String str = "{\n" +
-                        "\"tableId\":1,\n" +
-                        "\"TotalAmmount\":1200,\n" +
-                        "\"orderBy\":103,\n" +
-                        "\"CustomerName\":\"Mr.Rakesh sharma\",\n" +
-                        "\"customerEmailId\":\"rakesh@gmail.com\",\n" +
-                        "\"MobileNumber\":\"9808982015\",\n" +
-                        "\"Item\":[{\n" +
-                        "\t\t\"ItemId\":1, \n" +
-                        "\t\t\"Price\":60, \n" +
-                        "\t\t\"Disscount\":0.0,\n" +
-                        "\t\t\"Quantity\":2 \n" +
-                        "\t},\n" +
-                        "\t{\n" +
-                        "\t\t\"ItemId\":2, \n" +
-                        "\t\t\"Price\":20, \n" +
-                        "\t\t\"Disscount\":0.0, \n" +
-                        "\t\t\"Quantity\":2 \n" +
-                        "\t},\n" +
-                        "\t{\n" +
-                        "\t\t\"ItemId\":3, \n" +
-                        "\t\t\"Price\":280, \n" +
-                        "\t\t\"Disscount\":0.0, \n" +
-                        "\t\t\"Quantity\":3 \n" +
-                        "\t}\n" +
-                        "   ]\n" +
-                        "}";*/
                JSONObject jsonObject=new JSONObject();
                 try {
                     jsonObject.put("TotalAmmount", Double.parseDouble(mTvTotalAMount.getText().toString()));
@@ -216,11 +189,6 @@ public class MyCartActivity extends AppCompatActivity implements DataTransfer {
                     jsonArray.put(jsonObject1);
                 }
 
-
-
-
-
-
                 try {
                     jsonObject.put("Item",jsonArray);
                 } catch (JSONException e) {
@@ -243,64 +211,4 @@ public class MyCartActivity extends AppCompatActivity implements DataTransfer {
         progressDialog.setProgressStyle(progressDialog.STYLE_SPINNER);
         progressDialog.show();
     }
-
-/*
-
-    private RecyclerView mRecyclerViewCart;
-    private MyCartAdapter myCartAdapter;
-    private List<MyCart> myCartArrayList;
-    RestaurentMenuDatabase restaurentMenuDatabase;
-
-    private CustomButton mBtnPproceedtopay;
-    private CustomButton mBtnContinueorde;
-    private CustomTextView mTvNoItems , mTvTotalAMount;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my_cart);
-
-        mBtnPproceedtopay = findViewById(R.id.btn_proceedtopay);
-        mBtnContinueorde = findViewById(R.id.btn_continueorder);
-        mTvTotalAMount = findViewById(R.id.tv_amount);
-
-        mTvNoItems = findViewById(R.id.tv_no_items);
-
-        mRecyclerViewCart = findViewById(R.id.recycler_virw_cart);
-        myCartArrayList = new ArrayList<>();
-
-        getDatabaseList();
-
-        mBtnContinueorde.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-
-    }
-
-    private void getDatabaseList() {
-
-        restaurentMenuDatabase = RestaurentMenuDatabase.getInstance(this);
-        myCartArrayList = restaurentMenuDatabase.myCartDao().getAll();
-
-        if (myCartArrayList.size() == 0 && myCartArrayList.isEmpty()) {
-            mTvNoItems.setVisibility(View.VISIBLE);
-            mBtnPproceedtopay.setEnabled(false);
-            mBtnContinueorde.setEnabled(false);
-        }else {
-            myCartAdapter = new MyCartAdapter(this, myCartArrayList , restaurentMenuDatabase,this);
-            mRecyclerViewCart.setLayoutManager(new LinearLayoutManager(this));
-            mRecyclerViewCart.setAdapter(myCartAdapter);
-        }
-    }
-
-    @Override
-    public void setValues(double total) {
-            mTvTotalAMount.setText(""+total);
-    }
-
-
-*/
 }

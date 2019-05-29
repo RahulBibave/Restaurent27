@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout
+    android:layout_gravity="center"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -13,17 +14,17 @@
         android:layout_height="wrap_content"
         android:text="Name"
         app:fontType = "gotham_light"
-        android:textSize="16sp"
+        android:textSize="18sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.resmenu.customViews.CustomTextView
+    <ImageView
         android:id="@+id/plus"
+        android:src="@drawable/ic_add_black_24dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="40dp"
+        android:layout_marginLeft="100dp"
         android:text="+"
-        app:fontType = "gotham_light"
         android:textSize="20sp"
         app:layout_constraintStart_toEndOf="@+id/txt_item_name"
         app:layout_constraintTop_toTopOf="parent" />
@@ -34,19 +35,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="1"
-        app:fontType = "gotham_light"
+        app:fontType = "gotham_bold"
         android:textSize="16sp"
         android:layout_marginLeft="10dp"
         app:layout_constraintStart_toEndOf="@+id/plus"
         tools:layout_editor_absoluteX="184dp"
         tools:layout_editor_absoluteY="-1dp" />
 
-    <com.resmenu.customViews.CustomTextView
+    <ImageView
         android:id="@+id/minus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="-"
-        app:fontType = "gotham_light"
+        android:src="@drawable/ic_remove_black_24dp"
         android:textSize="20sp"
         android:layout_marginLeft="10dp"
         app:layout_constraintStart_toEndOf="@+id/quantity"
@@ -55,21 +55,22 @@
 
     <com.resmenu.customViews.CustomTextView
         android:id="@+id/total"
-        android:textSize="16sp"
+        android:textSize="18sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Cost"
         app:fontType = "gotham_light"
-        android:layout_marginRight="10dp"
+        android:layout_marginRight="15dp"
         app:layout_constraintRight_toLeftOf="@+id/imageView_cancle"
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_editor_absoluteX="350dp" />
 
     <ImageView
+        android:layout_marginRight="20dp"
         android:id="@+id/imageView_cancle"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
+        android:layout_width="22dp"
+        android:layout_height="22dp"
         android:layout_marginLeft="10dp"
         app:layout_constraintRight_toRightOf="parent"
         android:src="@drawable/ic_close_black_24dp"

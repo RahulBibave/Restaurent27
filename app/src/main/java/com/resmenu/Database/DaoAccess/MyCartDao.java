@@ -12,7 +12,8 @@ import java.util.List;
 
 @Dao
 public interface MyCartDao {
-        @Query("SELECT * FROM mycart")
+
+    @Query("SELECT * FROM mycart")
     List<MyCart> getAll();
 
     @Insert
@@ -28,8 +29,8 @@ public interface MyCartDao {
     void update(MyCart myCart);
 
     @Query("UPDATE MyCart SET itemQuantity = :quantity WHERE id =:id")
-    void updateById(int id , int quantity );
+    void updateById(int id, int quantity);
 
-    @Query("SELECT SUM(itemPrice) FROM MyCart WHERE tableNo = :tableNo")
+    @Query("SELECT SUM(itemPrice * itemQuantity) FROM MyCart WHERE tableNo = :tableNo")
     double getTotal(int tableNo);
 }

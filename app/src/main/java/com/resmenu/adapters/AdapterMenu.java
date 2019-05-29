@@ -109,7 +109,6 @@ public class AdapterMenu extends RecyclerView.Adapter<AdapterMenu.ViewHolderMenu
 
         } catch (Exception e)
         {
-            // TODO Auto-generated catch block
             e.printStackTrace();
             return null;
 

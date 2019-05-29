@@ -6,15 +6,19 @@ import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
 
 import com.resmenu.Database.DaoAccess.MyCartDao;
+import com.resmenu.Database.DaoAccess.UserTableDao;
 import com.resmenu.Database.Entity.MyCart;
+import com.resmenu.Database.Entity.UserTable;
 import com.resmenu.constants.AppConstants;
 
 // add new table name here
 
-@Database(entities = {MyCart.class}, version = 1)
+@Database(entities = {MyCart.class , UserTable.class}, version = 1 , exportSchema = false)
 public abstract class RestaurentMenuDatabase extends RoomDatabase {
-    public abstract MyCartDao myCartDao();
 
+
+    public abstract MyCartDao myCartDao();
+    public abstract UserTableDao myUserTableDao();
 
     private static volatile RestaurentMenuDatabase instance;
     private Context mContext;
