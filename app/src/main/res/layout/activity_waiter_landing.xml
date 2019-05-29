@@ -33,6 +33,7 @@
                 android:id="@+id/spinner"
                 android:textColor="@color/colorPrimary"
                 android:textSize="30dp"
+                android:background="@color/green"
                 android:textStyle="bold"
                 android:text="Waiter ID"
                 android:layout_marginTop="10dp"
@@ -94,6 +95,8 @@
                             android:layout_height="wrap_content"
                             android:background="@android:color/transparent"
                             android:gravity="center"
+                            android:maxLength="10"
+                            android:inputType="number"
                             android:textSize="20dp"
                             android:singleLine="true"
                             android:imeOptions="actionNext"
@@ -168,7 +171,7 @@
 
                 <ImageView
                     android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:src="@drawable/ic_restaurant_menu_black_24dp" />
 

@@ -12,21 +12,22 @@
         android:supportsRtl="true"
         android:usesCleartextTraffic="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.MainActivity">
+        <activity android:name=".activity.MainActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.SplashActivity" />
-        <activity android:name=".activity.TablesActivity"/>
-        <activity android:name=".activity.ActivityKitchen"/>
-        <activity android:name=".activity.Activity_Menu"/>
-        <activity android:name=".activity.Activity_Feedback"/>
-        <activity android:name=".activity.Activity_WaiterLanding"/>
-        <activity android:name=".activity.AllMenuActivity"/>
-    <activity android:name=".activity.MyCartActivity"/>
+        <activity android:name=".activity.SplashActivity"  android:screenOrientation="portrait"></activity>
+        <activity android:name=".activity.TablesActivity"  android:screenOrientation="portrait"></activity>
+        <activity android:name=".activity.ActivityKitchen"  android:screenOrientation="portrait"> </activity>
+        <activity android:name=".activity.Activity_Menu" android:screenOrientation="portrait"> </activity>
+        <activity android:name=".activity.Activity_Feedback" android:screenOrientation="portrait"> </activity>
+        <activity android:name=".activity.Activity_WaiterLanding" android:screenOrientation="portrait"> </activity>
+        <activity android:name=".activity.AllMenuActivity" android:screenOrientation="portrait"> </activity>
+    <activity android:name=".activity.MyCartActivity" android:screenOrientation="portrait"> </activity>
 
     </application>
 

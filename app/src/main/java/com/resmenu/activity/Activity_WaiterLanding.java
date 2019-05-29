@@ -116,7 +116,7 @@ public class Activity_WaiterLanding extends AppCompatActivity {
                         InputMethodManager imm = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
                         imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
                     } catch (Exception e) {
-                        // TODO: handle exception
+                       e.printStackTrace();
                     }
                 }
             }

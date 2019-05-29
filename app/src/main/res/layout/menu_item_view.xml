@@ -23,7 +23,7 @@
             android:id="@+id/txt_menu"
             android:textStyle="bold"
             android:textSize="30dp"
-            android:textColor="#070707"
+            android:textColor="@color/white"
             android:layout_gravity="center"
             android:gravity="center"
             android:alpha="10"

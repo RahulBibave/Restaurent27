@@ -13,11 +13,9 @@ import android.widget.Toast;
 import com.resmenu.Database.Entity.MyCart;
 import com.resmenu.Database.RestaurentMenuDatabase;
 import com.resmenu.R;
-import com.resmenu.activity.MyCartActivity;
 import com.resmenu.customViews.CustomTextView;
 import com.resmenu.interfaces.DataTransfer;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class MyCartAdapter extends RecyclerView.Adapter<MyCartAdapter.ViewHolderMyCart> {
@@ -68,8 +66,8 @@ public class MyCartAdapter extends RecyclerView.Adapter<MyCartAdapter.ViewHolder
 
     public class ViewHolderMyCart extends RecyclerView.ViewHolder {
 
-        CustomTextView mItemName, mMinus, mPlus, mQuantity, mTotal;
-        ImageView mImgCancle;
+        CustomTextView mItemName, mQuantity, mTotal;
+        ImageView mImgCancle,mMinus,mPlus;
 
         public ViewHolderMyCart(@NonNull View itemView) {
             super(itemView);
