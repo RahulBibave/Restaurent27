@@ -15,4 +15,6 @@ public class ApiUrls {
     public static final String mUrlSubmitOrder = "http://webapi.emenuhotels.in/api/Order/CreateOrder";
 
    // http://webapi.emenuhotels.in/api/ItemType/GetItemTypeList?HotelId=1
+    //get all table
+    public static final String mUrlTableList="http://webapi.emenuhotels.in/api/Table/GetAllActiveTable";
 }

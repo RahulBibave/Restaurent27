@@ -36,7 +36,8 @@ public class MainActivity extends AppCompatActivity {
     private Button button_login;
     private RequestQueue mRequestQueue;
     private EditText mEdtID, mEdtPass;
-    String userid = "101-101", userPass = "Admin";
+    //String userid = "101-101", userPass = "Admin";
+    String userid = "", userPass = "";
     private ProgressDialog progressDialog;
 SharedPreferenceManager sharedPreferenceManager;
 
