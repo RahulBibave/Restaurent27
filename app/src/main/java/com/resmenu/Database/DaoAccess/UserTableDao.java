@@ -27,5 +27,4 @@ public interface UserTableDao {
     @Query("UPDATE UserTable SET billId = :billId WHERE id =:id")
     void updateById(int billId, int id);
 
-
 }

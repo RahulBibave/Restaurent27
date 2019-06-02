@@ -7,13 +7,14 @@ import android.content.Context;
 
 import com.resmenu.Database.DaoAccess.MyCartDao;
 import com.resmenu.Database.DaoAccess.UserTableDao;
+import com.resmenu.Database.Entity.BillGenarateTable;
 import com.resmenu.Database.Entity.MyCart;
 import com.resmenu.Database.Entity.UserTable;
 import com.resmenu.constants.AppConstants;
 
 // add new table name here
 
-@Database(entities = {MyCart.class , UserTable.class}, version = 1 , exportSchema = false)
+@Database(entities = {MyCart.class , UserTable.class, BillGenarateTable.class}, version = 1 , exportSchema = false)
 public abstract class RestaurentMenuDatabase extends RoomDatabase {
 
 
