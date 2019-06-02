@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.resmenu.Database.Entity.MyCart;
 import com.resmenu.Database.RestaurentMenuDatabase;
 import com.resmenu.R;
+import com.resmenu.activity.Activity_WaiterLanding;
 import com.resmenu.customViews.CustomTextView;
 import com.resmenu.interfaces.DataTransfer;
 
@@ -143,7 +144,7 @@ public class MyCartAdapter extends RecyclerView.Adapter<MyCartAdapter.ViewHolder
 
     private void totalPriceCount() {
         // todo update table id here
-        dtInterface.setValues(restaurentMenuDatabase.myCartDao().getTotal(1));
+        dtInterface.setValues(restaurentMenuDatabase.myCartDao().getTotal(Activity_WaiterLanding.tableNO));
     }
 
     private void updateDatabase(int position ,int quantity ,double total){

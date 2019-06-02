@@ -12,9 +12,10 @@ public class ApiUrls {
     public static final String mUrlStaff="http://webapi.emenuhotels.in/api/Account/GetWaiters";
 
     public static final String mUrlSubCategories = "http://webapi.emenuhotels.in/api/Item/GetItemByMenuId";
-    public static final String mUrlSubmitOrder = "http://webapi.emenuhotels.in/api/Order/CreateOrder";
+    public static final String mUrlSubmitOrder = "http://webapi.emenuhotels.in/api/kitchen/SendOrderTokitchen";
 
    // http://webapi.emenuhotels.in/api/ItemType/GetItemTypeList?HotelId=1
     //get all table
     public static final String mUrlTableList="http://webapi.emenuhotels.in/api/Table/GetAllActiveTable";
+    
 }

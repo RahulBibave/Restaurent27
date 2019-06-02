@@ -163,7 +163,7 @@ public class MyCartActivity extends AppCompatActivity implements DataTransfer {
             public byte[] getBody() throws AuthFailureError {
 
                JSONObject jsonObject=new JSONObject();
-                try {
+               /* try {
                     jsonObject.put("TotalAmmount", Double.parseDouble(mTvTotalAMount.getText().toString()));
                     jsonObject.put("tableId",Activity_WaiterLanding.tableNO);
                     jsonObject.put("orderBy",Activity_WaiterLanding.waiterID);
@@ -172,25 +172,28 @@ public class MyCartActivity extends AppCompatActivity implements DataTransfer {
                     jsonObject.put("CustomerName",Activity_WaiterLanding.Cu_name);
                 } catch (JSONException e) {
                     e.printStackTrace();
-                }
+                }*/
 
                 JSONArray jsonArray=new JSONArray();
                 for (int i=0;i<myCartArrayList.size();i++){
                     JSONObject jsonObject1=new JSONObject();
                     try {
                     double diss=0.0;
-                    jsonObject1.put("ItemId",myCartArrayList.get(i).getId());
-                    jsonObject1.put("Price",myCartArrayList.get(i).getMenuPrice());
-                    jsonObject1.put("Disscount",diss);
-                    jsonObject1.put("Quantity",myCartArrayList.get(i).getItemQuantity());
+                    jsonObject1.put("ItemId",myCartArrayList.get(i).getId()+"");
+                    jsonObject1.put("CategoryId","1");
+                    jsonObject1.put("TableId",Activity_WaiterLanding.tableNO+"");
+                  //  jsonObject1.put("Disscount",diss);
+                    jsonObject1.put("WaiterId",Activity_WaiterLanding.waiterID+"");
+                    jsonObject1.put("Quantity",myCartArrayList.get(i).getItemQuantity()+"");
                     } catch (JSONException e) {
                         e.printStackTrace();
+
                     }
                     jsonArray.put(jsonObject1);
                 }
 
                 try {
-                    jsonObject.put("Item",jsonArray);
+                    jsonObject.put("Items",jsonArray);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
