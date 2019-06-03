@@ -3,6 +3,8 @@ package com.resmenu.activity;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
 import com.android.volley.AuthFailureError;
@@ -15,6 +17,7 @@ import com.android.volley.toolbox.Volley;
 import com.resmenu.POJO.Menu;
 import com.resmenu.POJO.Table;
 import com.resmenu.R;
+import com.resmenu.adapters.adapter_kitchenmain;
 import com.resmenu.constants.ApiUrls;
 
 import org.json.JSONArray;
@@ -32,6 +35,8 @@ public class Kitchen_TableActivity extends AppCompatActivity {
     private RequestQueue mRequestQueue;
     ArrayList<Table>tableArrayList;
     String accesstoken;
+    private RecyclerView mRecyclerView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +44,9 @@ public class Kitchen_TableActivity extends AppCompatActivity {
         setContentView(R.layout.activity_kitchen__table);
         SharedPreferences prefs = getSharedPreferences(PREF_NAME, MODE_PRIVATE);
         accesstoken = prefs.getString(ACCESS_TOKEN, null);
+        mRecyclerView=findViewById(R.id.recycler_view);
+        mRecyclerView.setLayoutManager(new GridLayoutManager(this,4));
+        getTable();
     }
     public void getTable() {
         mRequestQueue = Volley.newRequestQueue(this);
@@ -60,10 +68,11 @@ public class Kitchen_TableActivity extends AppCompatActivity {
                             String TableDescription=jsonObject.getString("TableDescription");
                             Boolean IsActive=jsonObject.getBoolean("IsActive");
                             Boolean IsBusy=jsonObject.getBoolean("IsBusy");
-
                             Table table=new Table(TableId,TableName,TableDescription,IsActive,IsBusy);
                             tableArrayList.add(table);
                         }
+                        adapter_kitchenmain adapter_kitchenmain=new adapter_kitchenmain(Kitchen_TableActivity.this,tableArrayList);
+                        mRecyclerView.setAdapter(adapter_kitchenmain);
 
                     }
                 } catch (JSONException e) {
@@ -86,6 +95,7 @@ public class Kitchen_TableActivity extends AppCompatActivity {
 
 
         };
+        mRequestQueue.add(stringRequest);
     }
 
 }

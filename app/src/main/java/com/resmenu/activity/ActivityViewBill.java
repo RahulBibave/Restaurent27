@@ -12,4 +12,8 @@ public class ActivityViewBill extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_bill);
     }
+
+    public void getBill(){
+
+    }
 }
