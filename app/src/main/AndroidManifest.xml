@@ -13,28 +13,41 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activity.ActivityViewBill"></activity>
-
-        <activity android:name=".activity.MainActivity"
+        <activity android:name=".activity.Kitchen_TableActivity"></activity>
+        <activity android:name=".activity.ActivityViewBill" />
+        <activity
+            android:name=".activity.MainActivity"
             android:screenOrientation="portrait">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-
-        <activity android:name=".activity.SplashActivity"  android:screenOrientation="portrait"></activity>
-        <activity android:name=".activity.TablesActivity"  android:screenOrientation="portrait"></activity>
-        <activity android:name=".activity.ActivityKitchen"  android:screenOrientation="portrait"> </activity>
-        <activity android:name=".activity.Activity_Menu" android:screenOrientation="portrait"> </activity>
-        <activity android:name=".activity.Activity_Feedback" android:screenOrientation="portrait"> </activity>
-        <activity android:name=".activity.Activity_WaiterLanding" android:screenOrientation="portrait"> </activity>
-        <activity android:name=".activity.AllMenuActivity" android:screenOrientation="portrait"> </activity>
-    <activity android:name=".activity.MyCartActivity" android:screenOrientation="portrait"> </activity>
-
+        <activity
+            android:name=".activity.SplashActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.TablesActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.ActivityKitchen"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".activity.Activity_Menu"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".activity.Activity_Feedback"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".activity.Activity_WaiterLanding"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".activity.AllMenuActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".activity.MyCartActivity"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

@@ -19,6 +19,7 @@ import com.resmenu.Database.Entity.MyCart;
 import com.resmenu.Database.RestaurentMenuDatabase;
 import com.resmenu.POJO.MenuItem;
 import com.resmenu.R;
+import com.resmenu.activity.Activity_WaiterLanding;
 import com.resmenu.customViews.CustomButton;
 import com.resmenu.customViews.CustomTextView;
 import com.squareup.picasso.Callback;
@@ -59,7 +60,7 @@ public class AdapterSubCat extends RecyclerView.Adapter<AdapterSubCat.ViewHolder
                 myCart.setItemQuantity(1);
                 // todo need to update with real time data
                 myCart.setWaiterId(1);
-                myCart.setTableNo(1);
+                myCart.setTableNo(Activity_WaiterLanding.tableNO);
 
                 RestaurentMenuDatabase menuDatabase;
                 menuDatabase = RestaurentMenuDatabase.getInstance(mContext);
