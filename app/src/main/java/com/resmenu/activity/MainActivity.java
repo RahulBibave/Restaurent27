@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -51,15 +52,6 @@ public static final String PREF_NAME = null;
 
         sharedPreferenceManager = new  SharedPreferenceManager();
 
-//        String hotel_id = sharedPreferenceManager.get(AppConstants.SHaredPrefKeys.LoginKey,"0");
-//        int role = sharedPreferenceManager.getInt(AppConstants.SHaredPrefKeys.RoleKey);
-//
-//        if (hotel_id != null ) {
-//            Intent intentRole = new Intent(MainActivity.this,TablesActivity.class);
-//            intentRole.putExtra("role",role);
-//            startActivity(intentRole);
-//            finish();
-//        }
         init();
         button_login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -184,7 +176,7 @@ public static final String PREF_NAME = null;
 
 
                     if (access_token!=null){
-                        Intent intent = new Intent(MainActivity.this,Kitchen_TableActivity.class);
+                        Intent intent = new Intent(MainActivity.this, TablesActivity.class);
                         intent.putExtra("role", "2");
                         startActivity(intent);
 //                        finish();

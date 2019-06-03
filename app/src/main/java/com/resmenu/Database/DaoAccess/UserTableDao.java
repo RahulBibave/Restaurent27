@@ -7,6 +7,7 @@ import android.arch.persistence.room.Update;
 
 import com.resmenu.Database.Entity.UserTable;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Dao
@@ -21,10 +22,10 @@ public interface UserTableDao {
     @Update
     void update(UserTable userTable);
 
+    @Query("SELECT * FROM UserTable where tableNo = :tableNo")
+    List<UserTable> getDataByTableNo(int tableNo);
+
     @Query("DELETE FROM UserTable WHERE id = :id")
     void deleteByUserId(int id);
-
-    @Query("UPDATE UserTable SET billId = :billId WHERE id =:id")
-    void updateById(int billId, int id);
 
 }

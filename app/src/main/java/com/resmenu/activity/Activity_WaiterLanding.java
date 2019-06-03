@@ -25,6 +25,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.resmenu.Database.Entity.UserTable;
+import com.resmenu.Database.RestaurentMenuDatabase;
 import com.resmenu.POJO.Staff;
 import com.resmenu.R;
 import com.resmenu.constants.ApiUrls;
@@ -37,6 +39,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static com.resmenu.activity.MainActivity.ACCESS_TOKEN;
@@ -44,7 +47,7 @@ import static com.resmenu.activity.MainActivity.PREF_NAME;
 
 public class Activity_WaiterLanding extends AppCompatActivity {
 
-    private LinearLayout mMenu, mFeedBack;
+    private LinearLayout mMenu, mFeedBack,mLLView_bill;
     private RequestQueue mRequestQueue;
     private Spinner spinner;
     ArrayList<String> arrayListStaffID;
@@ -56,6 +59,7 @@ public class Activity_WaiterLanding extends AppCompatActivity {
     private String flag="";
     public static String Cu_name,email,mobile;
     public static int waiterID,tableNO;
+    RestaurentMenuDatabase restaurentMenuDatabase;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -63,6 +67,10 @@ public class Activity_WaiterLanding extends AppCompatActivity {
         setContentView(R.layout.activity_waiter_landing);
         SharedPreferences prefs = getSharedPreferences(PREF_NAME, MODE_PRIVATE);
         accesstoken = prefs.getString(ACCESS_TOKEN, null);
+
+
+
+        restaurentMenuDatabase = RestaurentMenuDatabase.getInstance(Activity_WaiterLanding.this);
         getStaff();
         init();
         mMenu.setOnClickListener(new View.OnClickListener() {
@@ -100,6 +108,14 @@ public class Activity_WaiterLanding extends AppCompatActivity {
             }
         });
 
+        mLLView_bill.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Activity_WaiterLanding.this , ActivityViewBill.class);
+                startActivity(intent);
+            }
+        });
+
 
         mBtnContinue.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,7 +125,14 @@ public class Activity_WaiterLanding extends AppCompatActivity {
                     email=mEdtEmail.getText().toString();
                     mobile=mEdtMobile.getText().toString();
                     waiterID=waiter_ID;
-                    tableNO=1;
+
+                    UserTable userTable = new UserTable();
+                    userTable.setUserName(Cu_name);
+                    userTable.setUserEmail(email);
+                    userTable.setMobileNo(mobile);
+                    userTable.setTableStatus(true);
+                    //userTable.setTableNo(tableNO);
+                    restaurentMenuDatabase.myUserTableDao().insert(userTable);
                     flag="1";
                     mBtnContinue.setBackgroundColor(Color.GRAY);
                     try {
@@ -125,6 +148,7 @@ public class Activity_WaiterLanding extends AppCompatActivity {
     }
 
     private void init() {
+        mLLView_bill = findViewById(R.id.ll_view_bill);
         mMenu = findViewById(R.id.lin_menu);
         mFeedBack = findViewById(R.id.lin_feedback);
         spinner=findViewById(R.id.spinner);
@@ -132,8 +156,22 @@ public class Activity_WaiterLanding extends AppCompatActivity {
         mEdtEmail=findViewById(R.id.edtEmial);
         mEdtMobile=findViewById(R.id.edtMobile);
         mBtnContinue=findViewById(R.id.btnContinue);
+       // setUserValues();
+    }
 
+    private void setUserValues() {
+        //UserTable userTable = new UserTable();
+       List<UserTable> userTables =  new ArrayList<>();
 
+        userTables   =  restaurentMenuDatabase.myUserTableDao().getDataByTableNo(tableNO);
+        for (int i = 0 ; i<=userTables.size() ; i++){
+            System.out.println(userTables.get(i).getTableNo());
+        }
+        if (tableNO == userTables.get(0).getTableNo()){
+
+            mEdtName.setText(userTables.get(0).getUserName());
+            mEdtEmail.setText(userTables.get(0).getUserEmail());
+        }
     }
 
     public void getStaff() {

@@ -19,6 +19,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.resmenu.Database.Entity.MyCart;
+import com.resmenu.Database.Entity.UserTable;
 import com.resmenu.Database.RestaurentMenuDatabase;
 import com.resmenu.POJO.MenuItem;
 import com.resmenu.R;
@@ -128,6 +129,9 @@ public class MyCartActivity extends AppCompatActivity implements DataTransfer {
                                 .setCancelable(false)
                                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int id) {
+
+
+//                                        copyValuesToDatabase(myCartArrayList);
                                         finish();
                                         //do things
                                     }
@@ -185,6 +189,12 @@ public class MyCartActivity extends AppCompatActivity implements DataTransfer {
                   //  jsonObject1.put("Disscount",diss);
                     jsonObject1.put("WaiterId",Activity_WaiterLanding.waiterID+"");
                     jsonObject1.put("Quantity",myCartArrayList.get(i).getItemQuantity()+"");
+                        UserTable userTable = new UserTable();
+                        userTable.setItemId(myCartArrayList.get(i).getId()+"");
+                        userTable.setItemQuantity(myCartArrayList.get(i).getItemQuantity());
+                        userTable.setMenuName(myCartArrayList.get(i).getMenuName());
+                        userTable.setMenuPrice(myCartArrayList.get(i).getMenuPrice());
+                        restaurentMenuDatabase.myUserTableDao().insert(userTable);
                     } catch (JSONException e) {
                         e.printStackTrace();
 
@@ -213,5 +223,18 @@ public class MyCartActivity extends AppCompatActivity implements DataTransfer {
         progressDialog.setMessage("Please Wait....");
         progressDialog.setProgressStyle(progressDialog.STYLE_SPINNER);
         progressDialog.show();
+    }
+
+    private void copyValuesToDatabase(List<MyCart> myCartArrayList) {
+
+        UserTable userTable = new UserTable();
+        for (int i = 0 ; i<=myCartArrayList.size();i++){
+            userTable.setItemId(myCartArrayList.get(i).getId()+"");
+            userTable.setItemQuantity(myCartArrayList.get(i).getItemQuantity());
+            userTable.setMenuName(myCartArrayList.get(i).getMenuName());
+            userTable.setMenuPrice(myCartArrayList.get(i).getMenuPrice());
+        }
+        restaurentMenuDatabase.myUserTableDao().insert(userTable);
+
     }
 }

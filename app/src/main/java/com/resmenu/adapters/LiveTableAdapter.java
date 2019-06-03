@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.resmenu.Database.Entity.UserTable;
+import com.resmenu.Database.RestaurentMenuDatabase;
 import com.resmenu.R;
 import com.resmenu.activity.ActivityKitchen;
 import com.resmenu.activity.Activity_WaiterLanding;
@@ -17,9 +19,12 @@ import com.resmenu.activity.TablesActivity;
 
 public class LiveTableAdapter extends RecyclerView.Adapter<LiveTableAdapter.TableViewHolder> {
     Context mContext;
+RestaurentMenuDatabase restaurentMenuDatabase;
+UserTable userTable = new UserTable();
 
     public LiveTableAdapter(Context mContext) {
         this.mContext = mContext;
+        restaurentMenuDatabase = RestaurentMenuDatabase.getInstance(mContext);
     }
 
     @NonNull
@@ -30,7 +35,7 @@ public class LiveTableAdapter extends RecyclerView.Adapter<LiveTableAdapter.Tabl
     }
 
     @Override
-    public void onBindViewHolder(@NonNull TableViewHolder tableViewHolder, int i) {
+    public void onBindViewHolder(@NonNull TableViewHolder tableViewHolder, final int i) {
         int x=i+1;
         tableViewHolder.txtTableNo.setText(""+x);
 
@@ -63,8 +68,9 @@ public class LiveTableAdapter extends RecyclerView.Adapter<LiveTableAdapter.Tabl
                         Intent intentNext=new Intent(mContext, ActivityKitchen.class);
                         mContext.startActivity(intentNext);
                     }else {
-
                         Intent intentNext=new Intent(mContext, Activity_WaiterLanding.class);
+                        userTable.setTableNo(i+1);
+                        restaurentMenuDatabase.myUserTableDao().insert(userTable);
                         mContext.startActivity(intentNext);
                     }
 
